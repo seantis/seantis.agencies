@@ -1,0 +1,4 @@
+<layers>
+    <layer name="seantis.agencies"
+           interface="seantis.agencies.interfaces.ISeantisAgenciesSpecific" />
+</layers>
