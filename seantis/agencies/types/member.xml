@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf8'?>
+<model
+  xmlns="http://namespaces.plone.org/supermodel/schema"
+  xmlns:security="http://namespaces.plone.org/supermodel/security"
+  xmlns:indexer="http://namespaces.plone.org/supermodel/indexer"
+  xmlns:people="http://namespaces.plone.org/supermodel/people"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="seantis.agencies">
+
+  <schema>
+    <field name="academic_title" type="zope.schema.TextLine" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Academic Title</title>
+    </field>
+    <field name="firstname" type="zope.schema.TextLine" indexer:searchable="true">
+      <title i18n:translate="">First Name</title>
+    </field>
+    <field name="lastname" type="zope.schema.TextLine" indexer:searchable="true">
+      <title i18n:translate="">Last Name</title>
+    </field>
+    <field name="occupation" type="zope.schema.TextLine" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Occupation</title>
+    </field>
+    <field name="political_party" type="zope.schema.TextLine" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Political Party</title>
+    </field>
+    <field name="year" type="zope.schema.TextLine" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Year</title>
+    </field>
+    <field name="email" type="seantis.plonetools.schemafields.Email" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">E-Mail</title>
+    </field>
+    <field name="address" type="zope.schema.Text" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Address</title>
+    </field>
+    <field name="phone" type="zope.schema.TextLine" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Phone</title>
+    </field>
+    <field name="direct_number" type="zope.schema.TextLine" indexer:searchable="true">
+      <required>False</required>
+      <title i18n:translate="">Direct number</title>
+    </field>
+
+    <!-- Define the title and the id (path) of the object -->
+    <people:title>
+      <people:item>lastname</people:item>
+      <people:item>firstname</people:item>
+    </people:title>
+
+    <!-- Defines the order in which they are shown in the list -->
+    <people:order>
+      <people:item>lastname</people:item>
+      <people:item>firstname</people:item>
+    </people:order>
+
+     <!-- The Columns shown in the list -->
+    <people:columns>
+      <people:column>
+        <people:item>lastname</people:item>
+      </people:column>
+      <people:column>
+        <people:item>firstname</people:item>
+      </people:column>
+      <people:column selectable="true" title="Organizations" i18n:attributes="title">
+        <people:item>organizations</people:item><!-- defined in base.py -->
+      </people:column>
+      <people:column>
+        <people:item>email</people:item>
+      </people:column>
+      <people:column>
+        <people:item>phone</people:item>
+      </people:column>
+    </people:columns>
+
+     <!-- The fields displayed in the detail view -->
+    <people:details position="left">
+        <people:item>academic_title</people:item>
+        <people:item>occupation</people:item>
+        <people:item>political_party</people:item>
+        <people:item>year</people:item>
+        <people:item>memberships</people:item>
+    </people:details>
+    <people:details position="right">
+        <people:item>email</people:item>
+        <people:item>address</people:item>
+        <people:item>phone</people:item>
+        <people:item>direct_number</people:item>
+    </people:details>
+  </schema>
+</model>

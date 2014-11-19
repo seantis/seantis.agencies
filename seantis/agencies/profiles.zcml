@@ -2,10 +2,10 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    i18n_domain="plone">
+    i18n_domain="seantis.agencies">
 
     <!-- Default Profile -->
-    <genericsetup:registerProfile 
+    <genericsetup:registerProfile
         name="default"
         title="Seantis Agencies"
         description="A directory of people for (government) agencies."

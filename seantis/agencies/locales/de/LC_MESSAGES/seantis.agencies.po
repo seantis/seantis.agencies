@@ -1,104 +1,101 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: seantis.agencies\n"
 "POT-Creation-Date: 2014-11-19 12:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Seantis <info@seantis.ch>\n"
+"Language-Team: Seantis <info@seantis.ch>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: de\n"
+"Language-Name: German\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: seantis.dir.eventsportlet\n"
+"Domain: seantis.agencies\n"
 
 #: ./profiles.zcml
 msgid "A directory of people for (government) agencies."
-msgstr ""
+msgstr "Ein Personenverzeichnis für Behörden und Organisationen."
 
 #: ./types/member.xml
 msgid "Academic Title"
-msgstr ""
+msgstr "Akademischer Titel"
 
 #: ./types/member.xml
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: ./profiles/default/types/seantis.agencies.organization.xml
 msgid "Agency"
-msgstr ""
+msgstr "Organisation"
 
 #: ./profiles/default/types/seantis.agencies.member.xml
 msgid "Agency Member"
-msgstr ""
+msgstr "Mitglied einer Organisation"
 
 #: ./profiles/default/types/seantis.agencies.membership.xml
 msgid "Agency Membership"
-msgstr ""
+msgstr "Mitgliedschaft in einer Organisation"
 
 #: ./types/__init__.py:40
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: ./types/member.xml
 msgid "Direct number"
-msgstr ""
+msgstr "Direktnummer"
 
 #: ./types/member.xml
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: ./types/member.xml
 msgid "First Name"
-msgstr ""
+msgstr "Vorname"
 
 #: ./types/member.xml
 msgid "Last Name"
-msgstr ""
+msgstr "Name"
 
 #: ./browser/templates/organization.pt:30
 msgid "Memberships"
-msgstr ""
+msgstr "Mitgliedschaften"
 
 #: ./types/member.xml
 msgid "Occupation"
-msgstr ""
+msgstr "Beruf"
 
 #: ./types/member.xml
 msgid "Organizations"
-msgstr ""
+msgstr "Organisationen"
 
 #: ./types/member.xml
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: ./types/member.xml
 msgid "Political Party"
-msgstr ""
+msgstr "Politische Partei"
 
 #: ./browser/templates/organization.pt:12
 #: ./types/__init__.py:47
 msgid "Portrait"
-msgstr ""
+msgstr "Porträt"
 
 #: ./types/__init__.py:82
 msgid "Start of membership"
-msgstr ""
+msgstr "Eintritt"
 
 #: ./browser/templates/organization.pt:19
 msgid "Subsidiary organizations"
-msgstr ""
+msgstr "Unterorganisationen"
 
 #: ./types/__init__.py:35
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: ./types/member.xml
 msgid "Year"
-msgstr ""
+msgstr "Jahrgang"
 

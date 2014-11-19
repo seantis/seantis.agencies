@@ -15,8 +15,10 @@ requirements = [
     'plone.api',
     'plone.app.dexterity [grok]',
     'five.grok',
-    'seantis.plonetools'
+    'seantis.plonetools',
+    'seantis.people>=0.21'
 ]
+
 
 test_requirements = [
     'plone.app.testing',
