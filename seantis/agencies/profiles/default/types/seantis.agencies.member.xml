@@ -23,6 +23,7 @@
   <property name="behaviors">
     <element value="seantis.people.interfaces.INameFromPerson" />
     <element value="seantis.people.interfaces.IPerson" />
+    <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
   </property>
 
 </object>

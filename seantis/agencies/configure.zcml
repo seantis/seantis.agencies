@@ -21,6 +21,12 @@
 <!-- Profiles / Types -->
 <include file="profiles.zcml" />
 
+<!-- Events -->
+<subscriber
+    for=".types.IMember
+         zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+    handler=".types.on_member_created" />
+
 <!-- Import step for indexes -->
 <genericsetup:importStep
     name="seantis.agencies"

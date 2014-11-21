@@ -11,6 +11,7 @@ from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.dexterity.content import Container
 from plone.directives import form
+from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
 
 from collective.dexteritytextindexer import searchable
 
@@ -26,6 +27,16 @@ class IMember(form.Schema):
 
 class Member(PersonBase):
     pass
+
+
+def on_member_created(member, event):
+    if hasattr(member, 'exclude_from_nav'):
+        setattr(member, 'exclude_from_nav', True)
+
+
+@form.default_value(field=IExcludeFromNavigation['exclude_from_nav'])
+def excludeFromNavDefaultValue(data):
+    return True
 
 
 class IOrganization(form.Schema):
