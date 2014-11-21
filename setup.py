@@ -59,8 +59,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=requirements,
-    test_suite='tests',
-    tests_require=test_requirements,
+    extras_require=dict(
+        tests=test_requirements
+    ),
     entry_points="""
     # -*- Entry points: -*-
 
