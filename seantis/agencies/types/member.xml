@@ -8,6 +8,8 @@
   i18n:domain="seantis.agencies">
 
   <schema>
+
+    <!-- public fields -->
     <field name="academic_title" type="zope.schema.TextLine" indexer:searchable="true">
       <required>False</required>
       <title i18n:translate="">Academic Title</title>
@@ -47,6 +49,34 @@
       <title i18n:translate="">Direct number</title>
     </field>
 
+    <!-- private fields (note permission)-->
+    <fieldset name="private" label="Private" i18n:attributes="label">
+      <field name="salutation" type="zope.schema.TextLine" security:read-permission="cmf.ModifyPortalContent">
+        <required>False</required>
+        <title i18n:translate="">Salutation</title>
+      </field>
+      <field name="email" type="seantis.plonetools.schemafields.Email" security:read-permission="cmf.ModifyPortalContent">
+        <required>False</required>
+        <title i18n:translate="">E-Mail</title>
+      </field>
+      <field name="fax" type="zope.schema.TextLine" security:read-permission="cmf.ModifyPortalContent">
+        <required>False</required>
+        <title i18n:translate="">Fax</title>
+      </field>
+      <field name="website" type="seantis.plonetools.schemafields.Website" security:read-permission="cmf.ModifyPortalContent">
+        <required>False</required>
+        <title i18n:translate="">Website</title>
+      </field>
+      <field name="keywords" type="zope.schema.TextLine" security:read-permission="cmf.ModifyPortalContent">
+        <required>False</required>
+        <title i18n:translate="">Keywords</title>
+      </field>
+      <field name="remarks" type="zope.schema.Text" security:read-permission="cmf.ModifyPortalContent">
+        <required>False</required>
+        <title i18n:translate="">Remarks</title>
+      </field>
+    </fieldset>
+
     <!-- Define the title and the id (path) of the object -->
     <people:title>
       <people:item>lastname</people:item>
@@ -84,13 +114,18 @@
         <people:item>occupation</people:item>
         <people:item>political_party</people:item>
         <people:item>year</people:item>
-        <people:item>memberships</people:item>
-    </people:details>
-    <people:details position="right">
-        <people:item>email</people:item>
         <people:item>address</people:item>
+        <people:item>memberships</people:item>
         <people:item>phone</people:item>
         <people:item>direct_number</people:item>
+    </people:details>
+    <people:details position="right">
+        <people:item>salutation</people:item>
+        <people:item>email</people:item>
+        <people:item>fax</people:item>
+        <people:item>website</people:item>
+        <people:item>keywords</people:item>
+        <people:item>remarks</people:item>
     </people:details>
   </schema>
 </model>

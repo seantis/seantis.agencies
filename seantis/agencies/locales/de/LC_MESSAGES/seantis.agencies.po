@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: seantis.agencies\n"
-"POT-Creation-Date: 2014-11-19 12:58+0000\n"
+"POT-Creation-Date: 2014-11-24 10:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Seantis <info@seantis.ch>\n"
 "Language-Team: Seantis <info@seantis.ch>\n"
@@ -38,7 +38,7 @@ msgstr "Mitglied einer Organisation"
 msgid "Agency Membership"
 msgstr "Mitgliedschaft in einer Organisation"
 
-#: ./types/__init__.py:40
+#: ./types/__init__.py:51
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -51,8 +51,16 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: ./types/member.xml
+msgid "Fax"
+msgstr "Telefax"
+
+#: ./types/member.xml
 msgid "First Name"
 msgstr "Vorname"
+
+#: ./types/member.xml
+msgid "Keywords"
+msgstr "Stichworte"
 
 #: ./types/member.xml
 msgid "Last Name"
@@ -79,11 +87,23 @@ msgid "Political Party"
 msgstr "Politische Partei"
 
 #: ./browser/templates/organization.pt:12
-#: ./types/__init__.py:47
+#: ./types/__init__.py:58
 msgid "Portrait"
 msgstr "Porträt"
 
-#: ./types/__init__.py:82
+#: ./types/member.xml
+msgid "Private"
+msgstr "Privat"
+
+#: ./types/member.xml
+msgid "Remarks"
+msgstr "Bemerkungen"
+
+#: ./types/member.xml
+msgid "Salutation"
+msgstr "Anrede"
+
+#: ./types/__init__.py:93
 msgid "Start of membership"
 msgstr "Eintritt"
 
@@ -91,9 +111,13 @@ msgstr "Eintritt"
 msgid "Subsidiary organizations"
 msgstr "Unterorganisationen"
 
-#: ./types/__init__.py:35
+#: ./types/__init__.py:46
 msgid "Title"
 msgstr "Titel"
+
+#: ./types/member.xml
+msgid "Website"
+msgstr "Webseite"
 
 #: ./types/member.xml
 msgid "Year"
