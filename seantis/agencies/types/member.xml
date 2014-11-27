@@ -32,10 +32,6 @@
       <required>False</required>
       <title i18n:translate="">Year</title>
     </field>
-    <field name="email" type="seantis.plonetools.schemafields.Email" indexer:searchable="true">
-      <required>False</required>
-      <title i18n:translate="">E-Mail</title>
-    </field>
     <field name="address" type="zope.schema.Text" indexer:searchable="true">
       <required>False</required>
       <title i18n:translate="">Address</title>
