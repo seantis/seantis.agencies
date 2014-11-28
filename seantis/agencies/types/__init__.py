@@ -29,11 +29,6 @@ class Member(PersonBase):
     pass
 
 
-def on_member_created(member, event):
-    if hasattr(member, 'exclude_from_nav'):
-        setattr(member, 'exclude_from_nav', True)
-
-
 @form.default_value(field=IExcludeFromNavigation['exclude_from_nav'])
 def excludeFromNavDefaultValue(data):
     return True
