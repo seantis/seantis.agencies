@@ -2,7 +2,8 @@
 Changelog
 ---------
 
-0.1 (unreleased)
+0.1 (2014-12-04)
 ~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Initial release.
+  [msom]
