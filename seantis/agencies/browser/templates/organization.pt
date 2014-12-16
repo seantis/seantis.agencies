@@ -29,9 +29,14 @@
                 <div tal:condition="memberships" class="seantis-agencies-memberships">
                     <h2 i18n:translate="">Memberships</h2>
                     <dl>
-                        <dt tal:repeat="membership memberships">
-                            <a tal:content="python: membership[0]" tal:attributes="href python: membership[1]"/>
-                        </dt>
+                        <tal:block tal:repeat="membership memberships">
+                            <dt>
+                                <a tal:content="python: membership[0]" tal:attributes="href python: membership[2]"/>
+                            </dt>
+                            <dd>
+                                <a tal:content="python: membership[1]" tal:attributes="href python: membership[2]"/>
+                            </dd>
+                        </tal:block>
                     </dl>
                 </div>
             </tal:block>

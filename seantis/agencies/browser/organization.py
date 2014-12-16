@@ -24,6 +24,7 @@ class OrganizationView(BaseView):
 
     def memberships(self):
         return [
-            (brain["Title"] if "Title" in brain else "", brain.getURL())
+            (brain.getObject().role, brain.getObject().person.to_object.title,
+             brain.getURL())
             for brain in self.context.memberships()
         ]
