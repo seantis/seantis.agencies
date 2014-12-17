@@ -89,6 +89,11 @@ class IMembership(IPeopleMembership):
         required=False
     )
 
+    prefix = schema.TextLine(
+        title=_(u"Prefix"),
+        required=False
+    )
+
 
 class Membership(PeopleMembership):
     pass

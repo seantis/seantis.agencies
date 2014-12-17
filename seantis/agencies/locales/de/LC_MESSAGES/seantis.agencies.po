@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: seantis.agencies\n"
-"POT-Creation-Date: 2014-12-17 07:59+0000\n"
+"POT-Creation-Date: 2014-12-17 09:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Seantis <info@seantis.ch>\n"
 "Language-Team: Seantis <info@seantis.ch>\n"
@@ -70,7 +70,7 @@ msgstr "Name"
 msgid "Memberships"
 msgstr "Mitgliedschaften"
 
-#: ./browser/templates/membership.pt:30
+#: ./browser/templates/membership.pt:23
 msgid "Note"
 msgstr "Notiz"
 
@@ -82,7 +82,7 @@ msgstr "Beruf"
 msgid "Organizations"
 msgstr "Organisationen"
 
-#: ./browser/templates/membership.pt:26
+#: ./browser/templates/membership.pt:16
 msgid "Person"
 msgstr "Person"
 
@@ -99,6 +99,10 @@ msgstr "Politische Partei"
 msgid "Portrait"
 msgstr "Porträt"
 
+#: ./types/__init__.py:93
+msgid "Prefix"
+msgstr "Präfix"
+
 #: ./types/member.xml
 msgid "Private"
 msgstr "Privat"
@@ -107,7 +111,7 @@ msgstr "Privat"
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: ./browser/templates/membership.pt:22
+#: ./browser/templates/membership.pt:11
 msgid "Role inside organization"
 msgstr "Rolle in der Organisation"
 
@@ -115,7 +119,7 @@ msgstr "Rolle in der Organisation"
 msgid "Salutation"
 msgstr "Anrede"
 
-#: ./browser/templates/membership.pt:34
+#: ./browser/templates/membership.pt:27
 #: ./types/__init__.py:88
 msgid "Start of membership"
 msgstr "Eintritt"
