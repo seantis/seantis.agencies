@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-11-24 10:39+0000\n"
+"POT-Creation-Date: 2014-12-17 07:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Agency Membership"
 msgstr ""
 
-#: ./types/__init__.py:51
+#: ./types/__init__.py:46
 msgid "Description"
 msgstr ""
 
@@ -73,12 +73,20 @@ msgstr ""
 msgid "Memberships"
 msgstr ""
 
+#: ./browser/templates/membership.pt:30
+msgid "Note"
+msgstr ""
+
 #: ./types/member.xml
 msgid "Occupation"
 msgstr ""
 
 #: ./types/member.xml
 msgid "Organizations"
+msgstr ""
+
+#: ./browser/templates/membership.pt:26
+msgid "Person"
 msgstr ""
 
 #: ./types/member.xml
@@ -90,7 +98,7 @@ msgid "Political Party"
 msgstr ""
 
 #: ./browser/templates/organization.pt:12
-#: ./types/__init__.py:58
+#: ./types/__init__.py:53
 msgid "Portrait"
 msgstr ""
 
@@ -102,11 +110,16 @@ msgstr ""
 msgid "Remarks"
 msgstr ""
 
+#: ./browser/templates/membership.pt:22
+msgid "Role inside organization"
+msgstr ""
+
 #: ./types/member.xml
 msgid "Salutation"
 msgstr ""
 
-#: ./types/__init__.py:93
+#: ./browser/templates/membership.pt:34
+#: ./types/__init__.py:88
 msgid "Start of membership"
 msgstr ""
 
@@ -114,7 +127,7 @@ msgstr ""
 msgid "Subsidiary organizations"
 msgstr ""
 
-#: ./types/__init__.py:46
+#: ./types/__init__.py:41
 msgid "Title"
 msgstr ""
 

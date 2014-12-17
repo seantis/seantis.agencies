@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="seantis.agencies">
+
+    <metal:block metal:use-macro="context/main_template/macros/master">
+        <metal:block fill-slot="content-core">
+
+            <div tal:condition="context/role" class="field seantis-agencies-membership-role">
+                <label i18n:translate="">Role inside organization</label>
+                <div tal:content="context/role" />
+            </div>
+            <tal:block tal:define="person view/person">
+                <div tal:condition="person" class="field seantis-agencies-membership-person">
+                    <label i18n:translate="">Person</label>
+                    <div>
+                        <a tal:content="python: person[0]" tal:attributes="href python: person[1]" />
+                    </div>
+                </div>
+            </tal:block>
+            <div tal:condition="context/note" class="field seantis-agencies-membership-note">
+                <label i18n:translate="">Note</label>
+                <div tal:content="context/note" />
+            </div>
+            <div tal:condition="context/start" class="field seantis-agencies-membership-start">
+                <label i18n:translate="">Start of membership</label>
+                <div tal:content="context/start" />
+            </div>
+
+        </metal:block>
+    </metal:block>
+
+</html>
