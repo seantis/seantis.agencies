@@ -73,13 +73,13 @@ class Organization(Container):
         catalog = api.portal.get_tool('portal_catalog')
         folder_path = '/'.join(self.getPhysicalPath())
 
-        memberships = catalog(
+        suborganizations = catalog(
             path={'query': folder_path, 'depth': 1},
             portal_type='seantis.agencies.organization',
             sort_on='getObjPositionInParent',
         )
 
-        return memberships
+        return suborganizations
 
 
 class IMembership(IPeopleMembership):
