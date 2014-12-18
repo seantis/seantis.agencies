@@ -108,13 +108,15 @@ class ExportView(grok.View):
         book = Workbook(encoding='utf-8')
         uids = {'next': 0}
 
-        for organization in self.get_root_organizations():
+        root_organizations = self.get_root_organizations()
+        for organization in root_organizations:
             sheet = book.add_sheet(organization.title)
             for index, cell in enumerate(TITLES_ORGANIZATION):
                 sheet.row(0).write(index, cell)
             self.write_organization(sheet, organization, uids)
 
-        for register in self.get_root_registers():
+        root_registers = self.get_root_registers()
+        for register in root_registers:
             sheet = book.add_sheet(register.title)
             for index, cell in enumerate(TITLES_REGISTER):
                 sheet.row(0).write(index, cell)
@@ -122,8 +124,8 @@ class ExportView(grok.View):
             self.write_register(sheet, register, uids)
 
         filehandle = StringIO()
-        book.save(filehandle)
-
+        if root_organizations or root_registers:
+            book.save(filehandle)
         response = filehandle.getvalue()
 
         filehandle.seek(0, os.SEEK_END)
