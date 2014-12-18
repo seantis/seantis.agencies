@@ -15,6 +15,8 @@ requirements = [
     'plone.api',
     'plone.app.dexterity [grok]',
     'five.grok',
+    'xlrd',
+    'xlwt',
     'seantis.plonetools',
     'seantis.people>=0.21'
 ]

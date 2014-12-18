@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-12-17 09:00+0000\n"
+"POT-Creation-Date: 2014-12-18 14:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,22 @@ msgstr ""
 
 #: ./types/member.xml
 msgid "First Name"
+msgstr ""
+
+#: ./browser/xlsimport.py:67
+msgid "Import"
+msgstr ""
+
+#: ./browser/xlsimport.py:81
+msgid "Invalid XLS file"
+msgstr ""
+
+#: ./browser/xlsimport.py:108
+msgid "Invalid row ${row} in sheet ${sheet}"
+msgstr ""
+
+#: ./browser/xlsimport.py:89
+msgid "Items imported. Please reindex."
 msgstr ""
 
 #: ./types/member.xml
@@ -135,8 +151,16 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: ./browser/xlsimport.py:118
+msgid "Top level organizations not found"
+msgstr ""
+
 #: ./types/member.xml
 msgid "Website"
+msgstr ""
+
+#: ./browser/xlsimport.py:38
+msgid "XLS file"
 msgstr ""
 
 #: ./types/member.xml
