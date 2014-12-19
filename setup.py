@@ -18,7 +18,7 @@ requirements = [
     'xlrd',
     'xlwt',
     'seantis.plonetools',
-    'seantis.people>=0.21'
+    'seantis.people>=0.24'
 ]
 
 
