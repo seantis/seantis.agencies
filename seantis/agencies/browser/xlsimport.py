@@ -48,7 +48,7 @@ class ImportView(form.Form):
     ignoreContext = True
 
     def abort_action(self, action, messages):
-        """ Aborts the given actiona and adds the list of messages as
+        """ Aborts the given action and adds the list of messages as
         error-widgets to the form."""
         form = action.form
         formcontent = form.getContent()
@@ -220,6 +220,9 @@ class ImportView(form.Form):
                 )
             else:
                 log.warn('ignored sheet %s' % sheet.name)
+
+        if errors:
+            return errors
 
         intids = getUtility(IIntIds)
         memberships = {}
