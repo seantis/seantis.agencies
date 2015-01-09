@@ -35,3 +35,9 @@ def upgrade_1000_to_1001(context):
         if membership.note == u'*':
             membership.prefix = membership.note
             membership.note = None
+
+
+def upgrade_1001_to_1002(context):
+    upgrade_portal_type(
+        'seantis.agencies.membership', 'seantis.agencies', 'default'
+    )
