@@ -18,7 +18,8 @@ requirements = [
     'xlrd',
     'xlwt',
     'seantis.plonetools',
-    'seantis.people>=0.24'
+    'seantis.people>=0.24',
+    'kantonzugpdf'
 ]
 
 

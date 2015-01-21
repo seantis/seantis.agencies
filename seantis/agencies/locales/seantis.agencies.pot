@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-12-18 14:24+0000\n"
+"POT-Creation-Date: 2015-01-21 13:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,6 +97,7 @@ msgstr ""
 msgid "Occupation"
 msgstr ""
 
+#: ./browser/pdfexport.py:149
 #: ./types/member.xml
 msgid "Organizations"
 msgstr ""
@@ -120,6 +121,10 @@ msgstr ""
 
 #: ./types/__init__.py:93
 msgid "Prefix"
+msgstr ""
+
+#: ./browser/pdfexport.py:42
+msgid "Print date: ${date}"
 msgstr ""
 
 #: ./types/member.xml
