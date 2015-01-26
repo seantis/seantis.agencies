@@ -34,21 +34,17 @@ class BrowserTestCase(FunctionalTestCase):
         self.baseurl = self.portal.absolute_url()
         self.admin_browser = browser = self.new_admin_browser()
 
-        browser.open(self.baseurl + '/createObject?type_name=Folder')
-        browser.getControl('Title').value = 'testfolder'
-        browser.getControl('Save').click()
-
-        self.folder_url = self.baseurl + '/testfolder'
-        self.infolder = lambda url: self.folder_url + url
-
-    def tearDown(self):
-        self.admin_browser.open(self.infolder('/delete_confirmation'))
-        self.admin_browser.getControl('Delete').click()
-
-        super(BrowserTestCase, self).tearDown()
-
     def new_admin_browser(self):
         browser = self.new_browser()
         browser.login_admin()
 
         return browser
+
+    def add_organization(self, title='organization', portrait='', path=''):
+        browser = self.admin_browser
+
+        url = self.orgs_url + path + '/++add++seantis.agencies.organization'
+        browser.open(url)
+        browser.getControl('Title').value = title
+        browser.getControl('Portrait').value = portrait
+        browser.getControl('Save').click()

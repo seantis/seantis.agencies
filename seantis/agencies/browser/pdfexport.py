@@ -86,10 +86,10 @@ class OrganizationsReport(ReportZug):
             elif level == 6:
                 self.pdf.h6(organization.title)
             else:
-                self.pdf.p(organization.title)
+                self.pdf.p_markup(organization.title, self.pdf.style.heading6)
 
             # Portrait
-            if organization.portrait.strip():
+            if organization.portrait and organization.portrait.strip():
                 has_content = True
                 self.pdf.spacer()
                 try:
