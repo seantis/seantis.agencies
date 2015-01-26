@@ -60,6 +60,3 @@ class TestPdfExport(tests.BrowserTestCase):
         self.assertEquals(browser.headers['Content-Type'], 'application/pdf')
         self.assertEquals(browser.headers['Content-disposition'],
                           'filename="Organizations.pdf"')
-
-        with open('/Users/marc/Projects/staatskalender/output.pdf', 'w') as f:
-            f.write(browser.contents)
