@@ -3,10 +3,11 @@ language: python
 python: "2.7"
 
 install:
+    - pip install setuptools==7.0 --ignore-installed
     - cp buildout/* .
     - mkdir -p buildout-cache/eggs
     - mkdir -p buildout-cache/downloads
-    - python bootstrap.py -c travis.cfg
+    - python bootstrap.py -c travis.cfg --setuptools-version 7.0 --version 2.2.3
     - bin/buildout -N -t 3 -c travis.cfg
 
 script: bin/coverage run bin/test -s seantis.agencies
