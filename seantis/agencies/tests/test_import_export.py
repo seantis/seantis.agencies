@@ -27,9 +27,9 @@ class TestImportExport(tests.BrowserTestCase):
             [str(prefix) + '_' + field for field in TITLES_REGISTER]
             for prefix in range(3)
         ]
-        self.people[0][-1] = u'(0)(role)(2006)(*)(3)'
-        self.people[1][-1] = u'(1)()()()(7), (0)()()()(2),(3)()()()(7),'
-        self.people[2][-1] = u'(2)(role)()(2000)(2),(3)()(*)()(8)'
+        self.people[0][-1] = u'(0)(role)(2006)(*)(3)//'
+        self.people[1][-1] = u'(1)()()()(7)// (0)()()()(2)//(3)()()()(7)'
+        self.people[2][-1] = u'(2)(role)()(2000)(2)//(3)()(*)()(8)'
 
     def create_test_workbook(self, filehandle, organizations=None,
                              people=None):
@@ -156,7 +156,7 @@ class TestImportExport(tests.BrowserTestCase):
 
         # error in register sheet
         people = deepcopy(self.people)
-        people[1][-1] = u'(1))()()(7), (0aa()()(2),(3)()()()(7),'
+        people[1][-1] = u'(1))()()(7)// (0aa()()(2)//(3)()()()(7)//'
         filehandle = StringIO()
         self.create_test_workbook(filehandle, people=people)
         xls_file = filehandle.getvalue()
@@ -166,6 +166,7 @@ class TestImportExport(tests.BrowserTestCase):
         widget = browser.getControl(name='form.widgets.xls_file')
         widget.add_file(xls_file, 'application/xls', 'import.xls')
         browser.getControl('Import').click()
+
         self.assertIn('Invalid row 2 in sheet People', browser.contents)
 
         # error in organization sheet
