@@ -101,7 +101,7 @@ class ExportView(grok.View):
             ]
 
             sheet.row(index+1).write(
-                len(FIELDS_REGISTER), u', '.join(memberships)
+                len(FIELDS_REGISTER), u'//'.join(memberships)
             )
 
     def render(self):

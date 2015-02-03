@@ -138,13 +138,13 @@ class ImportView(form.Form):
                 )
                 strings = [
                     membership.strip() for membership
-                    in values[len(FIELDS_REGISTER)].split(',') if membership
+                    in values[len(FIELDS_REGISTER)].split('//') if membership
                 ]
                 memberships = [pattern.match(str).groups() for str in strings]
                 member['_memberships'] = memberships
 
                 members.append(member)
-            except:
+            except Exception as e:
                 errors.append(_(u'Invalid row ${row} in sheet ${sheet}',
                                 mapping={u'row': row, u'sheet': sheet.name}))
 

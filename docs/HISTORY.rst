@@ -5,7 +5,7 @@ Changelog
 0.3 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Use a more uncommon separator in XLS import/export.
 
 0.2 (2015-01-21)
 ~~~~~~~~~~~~~~~~
