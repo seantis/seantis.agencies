@@ -45,8 +45,11 @@ person_fields = (
 )
 person_text_fields = (
     u'name', u'vorname', u'jahrgang', u'anrede', u'titel', u'adresse',
-    u'partei', u'eintritt', u'tel_int', u'tel_ext', u'fax', u'email', u'www',
-    u'funktion', u'period', u'begriffe'
+    u'partei', u'tel_int', u'tel_ext', u'fax', u'email', u'www', u'period',
+    u'begriffe'
+)
+person_membership_fields = (
+    u'eintritt', u'funktion'
 )
 
 
@@ -185,7 +188,7 @@ def parse_organisation_text(fields):
             new_text = u''
             for url in text.split(u' '):
                 if u'www.' in url:
-                    new_text += u'<a href="%s">%s</a> ' % (url, url)
+                    new_text += u'<a href="http://%s">%s</a> ' % (url, url)
                 else:
                     new_text += url + u' '
             text = new_text.strip()
@@ -210,7 +213,7 @@ def get_people(sheet):
     # Find the indexes to the required fields
     assert len(rows) >= 1
     header = rows[0]
-    fields = person_fields + person_text_fields
+    fields = person_fields + person_text_fields + person_membership_fields
     assert all([field in header for field in fields])
     indexes = dict(
         ((field, header.index(field)) for field in fields)
@@ -225,7 +228,14 @@ def get_people(sheet):
         if u'*' in person[u'name']:
             prefix = u'*'
             person['name'] = person['name'].replace('*', '')
-        person['prefix'] = prefix
+
+        membership = {}
+        membership[u'prefix'] = prefix
+        membership[u'eintritt'] = person[u'eintritt'].strip()
+        membership[u'funktion'] = person[u'funktion'].strip()
+        person[u'membership'] = membership
+        del person[u'eintritt']
+        del person[u'funktion']
 
         for field in person_text_fields:
             person[field] = person[field].strip()
@@ -263,8 +273,8 @@ def export_organizations(organisations, output, verbose):
             [str(child[u'uid']) for child in organisation[u'children']]
         ))
         sheet.row(index).write(2, organisation[u'name'])
-        sheet.row(index).write(3, organisation[u'text'])
-        sheet.row(index).write(4, u'')
+        sheet.row(index).write(3, u'')
+        sheet.row(index).write(4, organisation[u'text'])
 
         for person in organisation[u'people']:
             if not person[u'name'] and not person[u'vorname']:
@@ -286,13 +296,13 @@ def export_organizations(organisations, output, verbose):
                 and existing[u'vorname'] == person[u'vorname']
             ]
             for duplicate in duplicates:
-                mergable = all([
+                mergable_fields = [
                     not people[duplicate][field] or
                     not person[field] or
                     people[duplicate][field] == person[field]
                     for field in person_text_fields
-                ])
-                if mergable:
+                ]
+                if all(mergable_fields):
                     set_organisation = False
                     for key in person.keys():
                         if not people[duplicate][key] and person[key]:
@@ -310,12 +320,22 @@ def export_organizations(organisations, output, verbose):
                         )
                     break
                 else:
+                    unmergable = [
+                        person_text_fields[index] for index, field
+                        in enumerate(mergable_fields) if not field
+                    ]
+                    details = [
+                        u'%s: %s != %s' % (
+                            field, person[field], people[duplicate][field]
+                        ) for field in unmergable
+                    ]
                     if verbose:
                         logger.warning(
-                            u'Could not merge person %i and %i (%s)' % (
+                            u'Could not merge person %i and %i (%s) [%s]' % (
                                 int(person[u'id']),
                                 int(people[duplicate][u'id']),
-                                person[u'vorname'] + u' ' + person[u'name']
+                                person[u'vorname'] + u' ' + person[u'name'],
+                                '; '.join(details)
                             )
                         )
 
@@ -415,9 +435,9 @@ def get_organisation_string(organisation, person):
 
     return u'(%s)(%s)(%s)(%s)(%s)' % (
         organisation[u'uid'],
-        person[u'funktion'],
-        person[u'eintritt'],
-        person[u'prefix'],
+        person[u'membership'][u'funktion'],
+        person[u'membership'][u'eintritt'],
+        person[u'membership'][u'prefix'],
         organisation[u'people'].index(person)
     )
 
