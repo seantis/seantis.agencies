@@ -2,10 +2,20 @@
 Changelog
 ---------
 
-0.3 (unreleased)
+0.3 (2015-02-09)
 ~~~~~~~~~~~~~~~~
 
 - Use a more uncommon separator in XLS import/export.
+  [msom]
+
+- Add data migration script.
+  [msom]
+
+- Add tests.
+  [msom]
+
+- Update bootstrap and setuptools.
+  [msom]
 
 0.2 (2015-01-21)
 ~~~~~~~~~~~~~~~~
