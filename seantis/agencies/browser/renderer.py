@@ -16,7 +16,6 @@ class UUIDListRenderer(BaseUUIDListRenderer):
 
         title = u'%s' % obj.title
         if parent:
-            # title = u'%s > %s' % (parent.title, title)
             title = u'%s (%s)' % (title, parent.title)
 
         return (brain.getURL(), title)
