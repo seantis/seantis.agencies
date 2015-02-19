@@ -89,7 +89,7 @@ class OrganizationsReport(ReportZug):
         )
         return [organization.getObject() for organization in organizations]
 
-    def populate_organization(self, organization, level):
+    def populate_organization(self, organization, level, last_child=False):
 
         has_content = False
         if level:
@@ -148,14 +148,20 @@ class OrganizationsReport(ReportZug):
                 self.pdf.spacer()
                 self.pdf.table(table_data, table_columns)
 
-        if has_content:
+        children = [o.getObject() for o in organization.suborganizations()]
+
+        break_page = (
+            (level < 3 and has_content) or
+            (level == 3 and not len(children)) or
+            (level == 4 and last_child)
+        )
+        if break_page:
             self.pdf.pagebreak()
         else:
             self.pdf.spacer()
 
-        children = [o.getObject() for o in organization.suborganizations()]
-        for child in children:
-            self.populate_organization(child, level+1)
+        for idx, child in enumerate(children):
+            self.populate_organization(child, level+1, idx == len(children)-1)
 
 
 class PdfExportView(grok.View):

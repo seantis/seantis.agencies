@@ -8,6 +8,10 @@ Changelog
 - Limit the visible levels in the table of contents of the PDF.
   [msom]
 
+- Use less page breaks in the PDF.
+  [msom]
+
+
 0.3 (2015-02-09)
 ~~~~~~~~~~~~~~~~
 
