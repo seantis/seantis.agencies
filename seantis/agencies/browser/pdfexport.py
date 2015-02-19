@@ -128,13 +128,15 @@ class OrganizationsReport(ReportZug):
             table_data = []
             memberships = [m.getObject() for m in organization.memberships()]
             for membership in memberships:
+                text = ''
                 person = membership.person.to_object
-                fields = ['title', 'year', 'academic_title', 'occupation',
-                          'address', 'political_party']
-                text = ', '.join([
-                    getattr(person, field) for field in fields
-                    if getattr(person, field)
-                ])
+                if person:
+                    fields = ['title', 'year', 'academic_title', 'occupation',
+                              'address', 'political_party']
+                    text = ', '.join([
+                        getattr(person, field) for field in fields
+                        if getattr(person, field)
+                    ])
 
                 table_data.append([
                     MarkupParagraph(membership.role, self.pdf.style.normal),

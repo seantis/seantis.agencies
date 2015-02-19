@@ -26,8 +26,7 @@ class OrganizationView(BaseView):
         memberships = []
         for brain in self.context.memberships():
             obj = brain.getObject()
-            memberships.append((
-                obj.role, obj.person.to_object.title, obj.prefix,
-                brain.getURL()
-            ))
+            person = obj.person.to_object
+            name = person.title if person else u''
+            memberships.append((obj.role, name, obj.prefix, brain.getURL()))
         return memberships

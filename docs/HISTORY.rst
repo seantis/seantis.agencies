@@ -11,6 +11,9 @@ Changelog
 - Use less page breaks in the PDF.
   [msom]
 
+- Fix displaying memberships with deleted members.
+  [msom]
+
 
 0.3 (2015-02-09)
 ~~~~~~~~~~~~~~~~

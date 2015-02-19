@@ -18,4 +18,6 @@ class OrganizationView(BaseView):
 
     def person(self):
         person = self.context.person.to_object
-        return [person.title, person.absolute_url()]
+        if person:
+            return [person.title, person.absolute_url()]
+        return [u'', u'']
