@@ -7,6 +7,7 @@ import re
 import tempfile
 
 from datetime import datetime, date
+from io import BytesIO
 from pdfdocument.document import MarkupParagraph
 from reportlab.lib.units import cm
 
@@ -17,9 +18,22 @@ from zExceptions import NotFound
 from zope.interface import Interface
 
 from kantonzugpdf import ReportZug
+from kantonzugpdf.report import PDF
 
 from seantis.agencies import _
 from seantis.plonetools import tools
+
+
+class OrganizationsPdf(PDF):
+
+    def h4(self, text, toc_level=3):
+        self.add_toc_heading(text, self.style.heading4, None, None)
+
+    def h5(self, text, toc_level=4):
+        self.add_toc_heading(text, self.style.heading5, None, None)
+
+    def h6(self, text, toc_level=5):
+        self.add_toc_heading(text, self.style.heading6, None, None)
 
 
 class OrganizationsReport(ReportZug):
@@ -27,6 +41,13 @@ class OrganizationsReport(ReportZug):
     current context.
 
     """
+
+    def __init__(self):
+        self.file = BytesIO()
+        self.pdf = OrganizationsPdf(self.file)
+        self.pdf.init_report(
+            page_fn=self.first_page, page_fn_later=self.later_page
+        )
 
     def translate(self, text):
         return tools.translator(self.request, 'seantis.agencies')(text)

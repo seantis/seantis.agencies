@@ -5,7 +5,8 @@ Changelog
 0.4 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Limit the visible levels in the table of contents of the PDF.
+  [msom]
 
 0.3 (2015-02-09)
 ~~~~~~~~~~~~~~~~
