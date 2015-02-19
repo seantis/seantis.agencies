@@ -111,7 +111,6 @@
         <people:item>political_party</people:item>
         <people:item>year</people:item>
         <people:item>address</people:item>
-        <people:item>memberships</people:item>
         <people:item>phone</people:item>
         <people:item>direct_number</people:item>
     </people:details>
@@ -122,6 +121,9 @@
         <people:item>website</people:item>
         <people:item>keywords</people:item>
         <people:item>remarks</people:item>
+    </people:details>
+    <people:details position="bottom">
+        <people:item>memberships</people:item>
     </people:details>
   </schema>
 </model>
