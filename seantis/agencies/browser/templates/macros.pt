@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="seantis.people"
+      tal:omit-tag="">
+
+    <tal:comment replace="nothing">
+    Shows the current memberships of a person.
+    </tal:comment>
+
+    <metal:define define-macro="person-memberships"
+       tal:define="macro python: context.unrestrictedTraverse('@@seantis-people-macros')">
+      <tal:block tal:define="organizations python: macro.organizations(person, method)" tal:condition="organizations">
+        <div class="person-detail person-memberships">
+          <h2 tal:content="label"></h2>
+          <ul class="dense">
+            <li tal:repeat="organization organizations">
+              <a tal:attributes="href organization/url" tal:content="organization/title" />
+              <tal:block condition="organization/role">
+                <span class="seantis-role-separator">-</span>
+                <span class="seantis-role" tal:content="organization/role"></span>
+              </tal:block>
+            </li>
+          </ul>
+        </div>
+      </tal:block>
+    </metal:define>
+</html>
