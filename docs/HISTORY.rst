@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.4 (unreleased)
+0.4 (2015-02-24)
 ~~~~~~~~~~~~~~~~
 
 - Limit the visible levels in the table of contents of the PDF.
