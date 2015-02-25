@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-01-21 13:20+0000\n"
+"POT-Creation-Date: 2015-02-25 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,6 +47,10 @@ msgstr ""
 
 #: ./types/member.xml
 msgid "Direct number"
+msgstr ""
+
+#: ./types/__init__.py:58
+msgid "Display memberships alphabetically"
 msgstr ""
 
 #: ./types/member.xml
@@ -97,7 +101,7 @@ msgstr ""
 msgid "Occupation"
 msgstr ""
 
-#: ./browser/pdfexport.py:149
+#: ./browser/pdfexport.py:178
 #: ./types/member.xml
 msgid "Organizations"
 msgstr ""
@@ -119,11 +123,11 @@ msgstr ""
 msgid "Portrait"
 msgstr ""
 
-#: ./types/__init__.py:93
+#: ./types/__init__.py:102
 msgid "Prefix"
 msgstr ""
 
-#: ./browser/pdfexport.py:42
+#: ./browser/pdfexport.py:63
 msgid "Print date: ${date}"
 msgstr ""
 
@@ -144,12 +148,16 @@ msgid "Salutation"
 msgstr ""
 
 #: ./browser/templates/membership.pt:27
-#: ./types/__init__.py:88
+#: ./types/__init__.py:97
 msgid "Start of membership"
 msgstr ""
 
 #: ./browser/templates/organization.pt:19
 msgid "Subsidiary organizations"
+msgstr ""
+
+#: ./types/__init__.py:59
+msgid "Tick this box to sort memberships alphabetically by name rather than by their position in the folder."
 msgstr ""
 
 #: ./types/__init__.py:41

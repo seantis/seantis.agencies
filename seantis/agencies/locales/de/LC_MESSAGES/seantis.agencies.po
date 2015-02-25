@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: seantis.agencies\n"
-"POT-Creation-Date: 2015-01-21 13:20+0000\n"
+"POT-Creation-Date: 2015-02-25 08:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Seantis <info@seantis.ch>\n"
 "Language-Team: Seantis <info@seantis.ch>\n"
@@ -45,6 +45,10 @@ msgstr "Beschreibung"
 #: ./types/member.xml
 msgid "Direct number"
 msgstr "Direktnummer"
+
+#: ./types/__init__.py:58
+msgid "Display memberships alphabetically"
+msgstr "Mitgliedschaften alphabetisch anzeigen"
 
 #: ./types/member.xml
 msgid "E-Mail"
@@ -94,7 +98,7 @@ msgstr "Notiz"
 msgid "Occupation"
 msgstr "Beruf"
 
-#: ./browser/pdfexport.py:149
+#: ./browser/pdfexport.py:178
 #: ./types/member.xml
 msgid "Organizations"
 msgstr "Organisationen"
@@ -116,11 +120,11 @@ msgstr "Politische Partei"
 msgid "Portrait"
 msgstr "Porträt"
 
-#: ./types/__init__.py:93
+#: ./types/__init__.py:102
 msgid "Prefix"
 msgstr "Präfix"
 
-#: ./browser/pdfexport.py:42
+#: ./browser/pdfexport.py:63
 msgid "Print date: ${date}"
 msgstr "Druckdatum: ${date}"
 
@@ -141,13 +145,17 @@ msgid "Salutation"
 msgstr "Anrede"
 
 #: ./browser/templates/membership.pt:27
-#: ./types/__init__.py:88
+#: ./types/__init__.py:97
 msgid "Start of membership"
 msgstr "Eintritt"
 
 #: ./browser/templates/organization.pt:19
 msgid "Subsidiary organizations"
 msgstr "Unterorganisationen"
+
+#: ./types/__init__.py:59
+msgid "Tick this box to sort memberships alphabetically by name rather than by their position in the folder."
+msgstr "Ordne die Mitgliedschaft alphabetisch nach Name anstatt nach der Reihenfolge im Ordner."
 
 #: ./types/__init__.py:41
 msgid "Title"
@@ -168,4 +176,3 @@ msgstr "XLS Datei"
 #: ./types/member.xml
 msgid "Year"
 msgstr "Jahrgang"
-

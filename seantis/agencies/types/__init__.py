@@ -54,6 +54,15 @@ class IOrganization(form.Schema):
         required=False
     )
 
+    display_alphabetically = schema.Bool(
+        title=_(u'Display memberships alphabetically'),
+        description=_(
+            u'Tick this box to sort memberships alphabetically by name rather '
+            u'than by their position in the folder.'
+        ),
+        default=False
+    )
+
 
 class Organization(Container):
 

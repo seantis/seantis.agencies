@@ -20,10 +20,11 @@ FIELDS_REGISTER = [
 ]
 
 TITLES_ORGANIZATION = [
-    u'ID', u'Unterorganisationen', u'Titel', u'Beschreibung', u'Portrait'
+    u'ID', u'Unterorganisationen', u'Titel', u'Beschreibung', u'Portrait',
+    u'Alphabetische Ordnung'
 ]
 FIELDS_ORGANIZATION = [
-    'title', 'description', 'portrait'
+    'title', 'description', 'portrait', 'display_alphabetically'
 ]
 
 

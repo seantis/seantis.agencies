@@ -125,12 +125,14 @@ class OrganizationsReport(ReportZug):
                     log.warn('%s contains invalid markup' % organization.title)
 
             # Table with memberships
-            table_data = []
-            memberships = [m.getObject() for m in organization.memberships()]
-            for membership in memberships:
+            memberships = []
+            for brain in organization.memberships():
+                membership = brain.getObject()
                 text = ''
+                name = ''
                 person = membership.person.to_object
                 if person:
+                    name = person.title
                     fields = ['title', 'year', 'academic_title', 'occupation',
                               'address', 'political_party']
                     text = ', '.join([
@@ -138,10 +140,19 @@ class OrganizationsReport(ReportZug):
                         if getattr(person, field)
                     ])
 
+                memberships.append((
+                    membership.role, membership.prefix, text, name
+                ))
+
+            if organization.display_alphabetically:
+                memberships = sorted(memberships, key=lambda m: m[3])
+
+            table_data = []
+            for membership in memberships:
                 table_data.append([
-                    MarkupParagraph(membership.role, self.pdf.style.normal),
-                    MarkupParagraph(membership.prefix, self.pdf.style.normal),
-                    MarkupParagraph(text, self.pdf.style.normal),
+                    MarkupParagraph(membership[0], self.pdf.style.normal),
+                    MarkupParagraph(membership[1], self.pdf.style.normal),
+                    MarkupParagraph(membership[2], self.pdf.style.normal),
                 ])
 
             table_columns = [4.5*cm, 0.3*cm, 11*cm]

@@ -18,10 +18,10 @@ class TestImportExport(tests.BrowserTestCase):
     def setUp(self):
         super(TestImportExport, self).setUp()
         self.organizations = [
-            [u'0', u'1,2', u'Organizations', u'des_0', u'port_0'],
-            [u'1', u'', u'org_1', u'des_1', u'port_1'],
-            [u'2', u'3', u'org_2', u'des_2', u'port_2'],
-            [u'3', u'', u'org_3', u'des_3', u'port_3']
+            [u'0', u'1,2', u'Organizations', u'des_0', u'port_0', 0],
+            [u'1', u'', u'org_1', u'des_1', u'port_1', 0],
+            [u'2', u'3', u'org_2', u'des_2', u'port_2', 0],
+            [u'3', u'', u'org_3', u'des_3', u'port_3', 1]
         ]
         self.people = [
             [str(prefix) + '_' + field for field in TITLES_REGISTER]
@@ -92,6 +92,7 @@ class TestImportExport(tests.BrowserTestCase):
         self.assertEquals(sheets[0].name, u'Organizations')
         self.assertEquals(sheets[0].ncols, len(TITLES_ORGANIZATION))
         self.assertEquals(sheets[0].nrows, 5)
+
         for row, content in enumerate(self.organizations):
             self.assertEquals([cell.value for cell in sheets[0].row(row+1)],
                               content)

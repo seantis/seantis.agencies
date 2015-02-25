@@ -29,4 +29,8 @@ class OrganizationView(BaseView):
             person = obj.person.to_object
             name = person.title if person else u''
             memberships.append((obj.role, name, obj.prefix, brain.getURL()))
+
+        if self.context.display_alphabetically:
+            memberships = sorted(memberships, key=lambda m: m[1])
+
         return memberships

@@ -41,3 +41,9 @@ def upgrade_1001_to_1002(context):
     upgrade_portal_type(
         'seantis.agencies.membership', 'seantis.agencies', 'default'
     )
+
+
+def upgrade_1002_to_1003(context):
+    upgrade_portal_type(
+        'seantis.agencies.organization', 'seantis.agencies', 'default'
+    )
