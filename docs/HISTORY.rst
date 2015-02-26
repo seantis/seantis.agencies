@@ -8,6 +8,8 @@ Changelog
 - Add Option to Organization for how to Display Memberships #5.
   [msom]
 
+- Change column widths of membership tables in PDF.
+  [msom]
 
 0.4 (2015-02-24)
 ~~~~~~~~~~~~~~~~
