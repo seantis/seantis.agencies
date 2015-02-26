@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.5 (unreleased)
+0.5 (2015-02-26)
 ~~~~~~~~~~~~~~~~
 
 - Add Option to Organization for how to Display Memberships #5.
