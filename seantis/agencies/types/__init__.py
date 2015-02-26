@@ -66,6 +66,8 @@ class IOrganization(form.Schema):
 
 class Organization(Container):
 
+    pdfexportable = True
+
     def memberships(self):
         catalog = api.portal.get_tool('portal_catalog')
         folder_path = '/'.join(self.getPhysicalPath())

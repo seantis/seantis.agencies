@@ -11,6 +11,9 @@ Changelog
 - Change column widths of membership tables in PDF.
   [msom]
 
+- Add PDF Export View to Organization #4.
+  [msom]
+
 0.4 (2015-02-24)
 ~~~~~~~~~~~~~~~~
 
@@ -22,7 +25,6 @@ Changelog
 
 - Fix displaying memberships with deleted members.
   [msom]
-
 
 0.3 (2015-02-09)
 ~~~~~~~~~~~~~~~~

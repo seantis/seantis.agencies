@@ -21,6 +21,7 @@ from kantonzugpdf import ReportZug
 from kantonzugpdf.report import PDF
 
 from seantis.agencies import _
+from seantis.agencies.types import IOrganization
 from seantis.plonetools import tools
 
 
@@ -42,12 +43,16 @@ class OrganizationsReport(ReportZug):
 
     """
 
-    def __init__(self):
+    def __init__(self, root=None, toc=True):
+        self.root = root
+        self.toc = toc
         self.file = BytesIO()
         self.pdf = OrganizationsPdf(self.file)
         self.pdf.init_report(
             page_fn=self.first_page, page_fn_later=self.later_page
         )
+        if not toc:
+            self.pdf.toc_numbering = None
 
     def translate(self, text):
         return tools.translator(self.request, 'seantis.agencies')(text)
@@ -70,8 +75,9 @@ class OrganizationsReport(ReportZug):
 
         # First page contains the title and table of contents
         self.pdf.h(self.title)
-        self.pdf.table_of_contents()
-        self.pdf.pagebreak()
+        if self.toc:
+            self.pdf.table_of_contents()
+            self.pdf.pagebreak()
 
         # Iterate recursive over organizations
         root_organizations = self.get_root_organizations()
@@ -80,6 +86,9 @@ class OrganizationsReport(ReportZug):
             self.populate_organization(organization, 0)
 
     def get_root_organizations(self):
+        if self.root:
+            return [self.root]
+
         catalog = api.portal.get_tool('portal_catalog')
         folder_path = '/'.join(self.context.getPhysicalPath())
         organizations = catalog(
@@ -177,7 +186,7 @@ class OrganizationsReport(ReportZug):
             self.populate_organization(child, level+1, idx == len(children)-1)
 
 
-class PdfExportView(grok.View):
+class PdfExportViewFull(grok.View):
 
     grok.name('pdfexport-agencies')
     grok.context(IPloneSiteRoot)
@@ -186,9 +195,37 @@ class PdfExportView(grok.View):
     template = None
 
     def render(self):
-        filename = _(u'Organizations')
         filehandle = OrganizationsReport().build(self.context, self.request)
 
+        filename = _(u'Organizations')
+        filename = codecs.utf_8_encode('filename="%s.pdf"' % filename)[0]
+        self.request.RESPONSE.setHeader('Content-disposition', filename)
+        self.request.RESPONSE.setHeader('Content-Type', 'application/pdf')
+
+        response = filehandle.getvalue()
+        filehandle.seek(0, os.SEEK_END)
+
+        filesize = filehandle.tell()
+        filehandle.close()
+
+        self.request.RESPONSE.setHeader('Content-Length', filesize)
+
+        return response
+
+
+class PdfExportView(grok.View):
+
+    grok.name('pdfexport')
+    grok.context(IOrganization)
+    grok.require('zope2.View')
+
+    template = None
+
+    def render(self):
+        report = OrganizationsReport(root=self.context)
+        filehandle = report.build(self.context, self.request)
+
+        filename = self.context.title
         filename = codecs.utf_8_encode('filename="%s.pdf"' % filename)[0]
         self.request.RESPONSE.setHeader('Content-disposition', filename)
         self.request.RESPONSE.setHeader('Content-Type', 'application/pdf')
