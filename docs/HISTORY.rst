@@ -5,7 +5,8 @@ Changelog
 0.5 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Add Option to Organization for how to Display Memberships #5.
+  [msom]
 
 
 0.4 (2015-02-24)
