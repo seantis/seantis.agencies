@@ -222,7 +222,7 @@ class PdfExportView(grok.View):
     template = None
 
     def render(self):
-        report = OrganizationsReport(root=self.context)
+        report = OrganizationsReport(root=self.context, toc=False)
         filehandle = report.build(self.context, self.request)
 
         filename = self.context.title
