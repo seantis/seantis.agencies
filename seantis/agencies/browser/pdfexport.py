@@ -118,57 +118,57 @@ class OrganizationsReport(ReportZug):
             else:
                 self.pdf.p_markup(organization.title, self.pdf.style.heading6)
 
-            # Portrait
-            if organization.portrait and organization.portrait.strip():
-                has_content = True
-                self.pdf.spacer()
-                try:
-                    # remove target attribute from link tags
-                    self.pdf.p_markup(
-                        re.sub(r"target=[\"'].*\w[\"']", "",
-                               organization.portrait)
-                    )
-                except ValueError:
-                    # the portrait might have some unprocessable html code
-                    self.pdf.p(organization.portrait)
-                    log.warn('%s contains invalid markup' % organization.title)
+        # Portrait
+        if organization.portrait and organization.portrait.strip():
+            has_content = True
+            self.pdf.spacer()
+            try:
+                # remove target attribute from link tags
+                self.pdf.p_markup(
+                    re.sub(r"target=[\"'].*\w[\"']", "",
+                           organization.portrait)
+                )
+            except ValueError:
+                # the portrait might have some unprocessable html code
+                self.pdf.p(organization.portrait)
+                log.warn('%s contains invalid markup' % organization.title)
 
-            # Table with memberships
-            memberships = []
-            for brain in organization.memberships():
-                membership = brain.getObject()
-                text = ''
-                name = ''
-                person = membership.person.to_object
-                if person:
-                    name = person.title
-                    fields = ['title', 'year', 'academic_title', 'occupation',
-                              'address', 'political_party']
-                    text = ', '.join([
-                        getattr(person, field) for field in fields
-                        if getattr(person, field)
-                    ])
-
-                memberships.append((
-                    membership.role, membership.prefix, text, name
-                ))
-
-            if organization.display_alphabetically:
-                memberships = sorted(memberships, key=lambda m: m[3])
-
-            table_data = []
-            for membership in memberships:
-                table_data.append([
-                    MarkupParagraph(membership[0], self.pdf.style.normal),
-                    MarkupParagraph(membership[1], self.pdf.style.normal),
-                    MarkupParagraph(membership[2], self.pdf.style.normal),
+        # Table with memberships
+        memberships = []
+        for brain in organization.memberships():
+            membership = brain.getObject()
+            text = ''
+            name = ''
+            person = membership.person.to_object
+            if person:
+                name = person.title
+                fields = ['title', 'year', 'academic_title', 'occupation',
+                          'address', 'political_party']
+                text = ', '.join([
+                    getattr(person, field) for field in fields
+                    if getattr(person, field)
                 ])
 
-            table_columns = [4.3*cm, 0.5*cm, 11*cm]
-            if table_data:
-                has_content = True
-                self.pdf.spacer()
-                self.pdf.table(table_data, table_columns)
+            memberships.append((
+                membership.role, membership.prefix, text, name
+            ))
+
+        if organization.display_alphabetically:
+            memberships = sorted(memberships, key=lambda m: m[3])
+
+        table_data = []
+        for membership in memberships:
+            table_data.append([
+                MarkupParagraph(membership[0], self.pdf.style.normal),
+                MarkupParagraph(membership[1], self.pdf.style.normal),
+                MarkupParagraph(membership[2], self.pdf.style.normal),
+            ])
+
+        table_columns = [4.3*cm, 0.5*cm, 11*cm]
+        if table_data:
+            has_content = True
+            self.pdf.spacer()
+            self.pdf.table(table_data, table_columns)
 
         children = [o.getObject() for o in organization.suborganizations()]
 

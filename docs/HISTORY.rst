@@ -5,7 +5,7 @@ Changelog
 0.6 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Show portrait and memberships of root organizations in PDF. Fixes #6.
 
 0.5 (2015-02-26)
 ~~~~~~~~~~~~~~~~
