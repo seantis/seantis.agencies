@@ -2,8 +2,8 @@
 Changelog
 ---------
 
-0.6 (unreleased)
-~~~~~~~~~~~~~~~~
+0.5.1 (2015-03-02)
+~~~~~~~~~~~~~~~~~~
 
 - Show portrait and memberships of root organizations in PDF. Fixes #6.
 
