@@ -6,7 +6,7 @@ A directory of people for (government) agencies.
 Build Status
 ------------
 
-.. image:: https://travis-ci.org/seantis/seantis.agencies.png
+.. image:: https://travis-ci.org/seantis/seantis.agencies.png?branch=master
   :target: https://travis-ci.org/seantis/seantis.agencies
   :alt: Build Status
 
