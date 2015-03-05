@@ -190,27 +190,28 @@ class PdfExportViewFull(grok.View):
 
     grok.name('pdfexport-agencies')
     grok.context(IPloneSiteRoot)
-    grok.require('zope2.View')
+    grok.require('cmf.ManagePortal')
 
     template = None
 
     def render(self):
+        filename = codecs.utf_8_encode('%s.pdf' % self.context.title)[0]
+
+        if filename in self.context:
+            self.context.manage_delObjects([filename])
+
         filehandle = OrganizationsReport().build(self.context, self.request)
 
-        filename = _(u'Organizations')
-        filename = codecs.utf_8_encode('filename="%s.pdf"' % filename)[0]
-        self.request.RESPONSE.setHeader('Content-disposition', filename)
-        self.request.RESPONSE.setHeader('Content-Type', 'application/pdf')
+        self.context.invokeFactory(type_name='File', id=filename)
+        file = self.context.get(filename)
+        file.setContentType('application/pdf')
+        file.setExcludeFromNav(True)
+        file.setFilename(filename)
+        file.setFile(filehandle.getvalue())
 
-        response = filehandle.getvalue()
-        filehandle.seek(0, os.SEEK_END)
+        file.reindexObject()
 
-        filesize = filehandle.tell()
-        filehandle.close()
-
-        self.request.RESPONSE.setHeader('Content-Length', filesize)
-
-        return response
+        return u'%s created' % filename
 
 
 class PdfExportView(grok.View):
