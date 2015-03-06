@@ -154,7 +154,8 @@ class OrganizationsReport(ReportZug):
             ))
 
         if organization.display_alphabetically:
-            memberships = sorted(memberships, key=lambda m: m[3])
+            sortkey = lambda m: tools.unicode_collate_sortkey()(m[3])
+            memberships = sorted(memberships, key=sortkey)
 
         table_data = []
         for membership in memberships:
@@ -164,7 +165,7 @@ class OrganizationsReport(ReportZug):
                 MarkupParagraph(membership[2], self.pdf.style.normal),
             ])
 
-        table_columns = [4.3*cm, 0.5*cm, 11*cm]
+        table_columns = [4.3 * cm, 0.5 * cm, 11 * cm]
         if table_data:
             has_content = True
             self.pdf.spacer()
@@ -183,7 +184,8 @@ class OrganizationsReport(ReportZug):
             self.pdf.spacer()
 
         for idx, child in enumerate(children):
-            self.populate_organization(child, level+1, idx == len(children)-1)
+            self.populate_organization(child, level + 1,
+                                       idx == len(children) - 1)
 
 
 class PdfExportViewFull(grok.View):
