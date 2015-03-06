@@ -10,6 +10,13 @@ Build Status
   :target: https://travis-ci.org/seantis/seantis.agencies
   :alt: Build Status
 
+Views
+-----
+
+* Export the current organization with its memberships and children to a PDF: */pdfexport*
+* Export all organizations with its memberships and children to a PDF located at the root: */pdfexport-agencies?run=1&force=1*
+
+
 Coverage
 --------
 

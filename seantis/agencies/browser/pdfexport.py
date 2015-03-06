@@ -6,14 +6,16 @@ import codecs
 import re
 import tempfile
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from io import BytesIO
 from pdfdocument.document import MarkupParagraph
 from reportlab.lib.units import cm
+from threading import Lock
 
 from five import grok
 from plone import api
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from plone.synchronize import synchronized
 from zExceptions import NotFound
 from zope.interface import Interface
 
@@ -22,7 +24,7 @@ from kantonzugpdf.report import PDF
 
 from seantis.agencies import _
 from seantis.agencies.types import IOrganization
-from seantis.plonetools import tools
+from seantis.plonetools import tools, unrestricted
 
 
 class OrganizationsPdf(PDF):
@@ -188,34 +190,6 @@ class OrganizationsReport(ReportZug):
                                        idx == len(children) - 1)
 
 
-class PdfExportViewFull(grok.View):
-
-    grok.name('pdfexport-agencies')
-    grok.context(IPloneSiteRoot)
-    grok.require('cmf.ManagePortal')
-
-    template = None
-
-    def render(self):
-        filename = codecs.utf_8_encode('%s.pdf' % self.context.title)[0]
-
-        if filename in self.context:
-            self.context.manage_delObjects([filename])
-
-        filehandle = OrganizationsReport().build(self.context, self.request)
-
-        self.context.invokeFactory(type_name='File', id=filename)
-        file = self.context.get(filename)
-        file.setContentType('application/pdf')
-        file.setExcludeFromNav(True)
-        file.setFilename(filename)
-        file.setFile(filehandle.getvalue())
-
-        file.reindexObject()
-
-        return u'%s created' % filename
-
-
 class PdfExportView(grok.View):
 
     grok.name('pdfexport')
@@ -242,3 +216,92 @@ class PdfExportView(grok.View):
         self.request.RESPONSE.setHeader('Content-Length', filesize)
 
         return response
+
+
+class PdfExportScheduler(object):
+
+    _lock = Lock()
+
+    def __init__(self):
+        self.next_run = 0
+
+    def get_next_run(self, now=None):
+        if now is None:
+            now = datetime.now()
+
+        # Schedule next run tomorrow at 0:30
+        at_hours = 0
+        at_minutes = 30
+        days = 1
+        if now.hour < (at_hours + 1) and now.minute < at_minutes:
+            days = 0
+        next_run = datetime(now.year, now.month, now.day)
+        next_run = next_run + timedelta(
+            days=days, hours=at_hours, minutes=at_minutes
+        )
+
+        return next_run
+
+    @synchronized(_lock)
+    def run(self, context, request, force, now=None):
+
+        if now is None:
+            now = datetime.now()
+
+        if os.getenv('seantis_agencies_export', False) == 'true':
+            if not self.next_run:
+                self.next_run = self.get_next_run(now)
+
+            if (now > self.next_run) or force:
+                filename = u''
+                self.next_run = self.get_next_run(now)
+                return self._run(context, request)
+
+        return u''
+
+    def _run(self, context, request):
+        filename = codecs.utf_8_encode('%s.pdf' % context.title)[0]
+        log.info('begin exporting to %s' % (filename))
+
+        if filename in context:
+            context.manage_delObjects([filename])
+
+        filehandle = OrganizationsReport().build(context, request)
+
+        context.invokeFactory(type_name='File', id=filename)
+        file = context.get(filename)
+        file.setContentType('application/pdf')
+        file.setExcludeFromNav(True)
+        file.setFilename(filename)
+        file.setFile(filehandle.getvalue())
+        file.reindexObject()
+
+        log.info('exported to %s' % (filename))
+        return filename
+
+
+export_scheduler = PdfExportScheduler()
+
+
+class PdfExportViewFull(grok.View):
+
+    grok.name('pdfexport-agencies')
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.View')
+
+    template = None
+
+    def render(self):
+        self.request.response.setHeader("Content-type", "text/plain")
+
+        if self.request.get('run') == '1':
+            force = self.request.get('force') == '1'
+            with unrestricted.run_as('Manager'):
+                filename = export_scheduler.run(
+                    self.context, self.request, force
+                )
+
+            if filename:
+                return u'%s created' % filename
+
+        return u''

@@ -3,10 +3,17 @@ from five import grok
 from plone.folder.interfaces import IExplicitOrdering
 from plone.uuid.interfaces import IUUID
 from zope.component import queryUtility
+from zope.event import notify
+from zope.interface import implements
 
-from seantis.agencies.types import IOrganization
 from seantis.agencies.browser.base import BaseView
+from seantis.agencies.interfaces import IActivityEvent
+from seantis.agencies.types import IOrganization
 from seantis.plonetools import tools
+
+
+class ResourceViewedEvent(object):
+    implements(IActivityEvent)
 
 
 class OrganizationView(BaseView):
@@ -16,6 +23,7 @@ class OrganizationView(BaseView):
     grok.name('view')
 
     template = grok.PageTemplateFile('templates/organization.pt')
+    event_fired = False
 
     def suborganizations(self):
         return [
@@ -36,3 +44,10 @@ class OrganizationView(BaseView):
             memberships = sorted(memberships, key=sortkey)
 
         return memberships
+
+    def update(self, **kwargs):
+        super(OrganizationView, self).update(**kwargs)
+
+        if not self.event_fired:
+            notify(ResourceViewedEvent())
+            self.event_fired = True
