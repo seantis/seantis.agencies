@@ -6,6 +6,7 @@ from zope.component import queryUtility
 
 from seantis.agencies.types import IOrganization
 from seantis.agencies.browser.base import BaseView
+from seantis.plonetools import tools
 
 
 class OrganizationView(BaseView):
@@ -31,6 +32,7 @@ class OrganizationView(BaseView):
             memberships.append((obj.role, name, obj.prefix, brain.getURL()))
 
         if self.context.display_alphabetically:
-            memberships = sorted(memberships, key=lambda m: m[1])
+            sortkey = lambda m: tools.unicode_collate_sortkey()(m[1])
+            memberships = sorted(memberships, key=sortkey)
 
         return memberships

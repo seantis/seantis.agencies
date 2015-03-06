@@ -5,7 +5,8 @@ Changelog
 0.6 (unreleased)
 ~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Use unicode_collate_sortkey in membership sorting. Fixes #8
+  [msom]
 
 0.5.1 (2015-03-02)
 ~~~~~~~~~~~~~~~~~~
