@@ -23,4 +23,11 @@
         handler=".upgrades.upgrade_1002_to_1003"
     />
 
+    <genericsetup:upgradeStep
+        title="Store PDF export in file"
+        source="1003" destination="1004"
+        profile="seantis.agencies:default"
+        handler=".upgrades.upgrade_1003_to_1004"
+    />
+
 </configure>

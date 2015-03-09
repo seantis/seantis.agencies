@@ -1,5 +1,5 @@
 from five import grok
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 
 from seantis.plonetools import async
 from seantis.agencies.interfaces import IActivityEvent
@@ -7,4 +7,4 @@ from seantis.agencies.interfaces import IActivityEvent
 
 @grok.subscribe(IActivityEvent)
 def on_resource_viewed(event):
-    async.register('/%s/pdfexport-agencies?run=1' % getSite().id, 60 * 60)
+    async.register('/%s/pdfexport-agencies' % getSite().id, 60 * 60)
