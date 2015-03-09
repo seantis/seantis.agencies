@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.6.1 (unreleased)
+0.6.1 (2015-03-09)
 ~~~~~~~~~~~~~~~~~~
 
 - Don't support multiple instances for PDF export for now.
