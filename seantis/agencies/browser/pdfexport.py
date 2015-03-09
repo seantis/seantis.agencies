@@ -6,14 +6,16 @@ import codecs
 import re
 import tempfile
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from io import BytesIO
 from pdfdocument.document import MarkupParagraph
 from reportlab.lib.units import cm
+from threading import Lock
 
 from five import grok
 from plone import api
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from plone.synchronize import synchronized
 from zExceptions import NotFound
 from zope.interface import Interface
 
@@ -22,7 +24,10 @@ from kantonzugpdf.report import PDF
 
 from seantis.agencies import _
 from seantis.agencies.types import IOrganization
-from seantis.plonetools import tools
+from seantis.plonetools import tools, unrestricted
+
+
+PDF_EXPORT_FILENAME = u'exported_pdf.pdf'
 
 
 class OrganizationsPdf(PDF):
@@ -188,34 +193,12 @@ class OrganizationsReport(ReportZug):
                                        idx == len(children) - 1)
 
 
-class PdfExportViewFull(grok.View):
-
-    grok.name('pdfexport-agencies')
-    grok.context(IPloneSiteRoot)
-    grok.require('zope2.View')
-
-    template = None
-
-    def render(self):
-        filehandle = OrganizationsReport().build(self.context, self.request)
-
-        filename = _(u'Organizations')
-        filename = codecs.utf_8_encode('filename="%s.pdf"' % filename)[0]
-        self.request.RESPONSE.setHeader('Content-disposition', filename)
-        self.request.RESPONSE.setHeader('Content-Type', 'application/pdf')
-
-        response = filehandle.getvalue()
-        filehandle.seek(0, os.SEEK_END)
-
-        filesize = filehandle.tell()
-        filehandle.close()
-
-        self.request.RESPONSE.setHeader('Content-Length', filesize)
-
-        return response
-
-
 class PdfExportView(grok.View):
+    """ View to create and store a PDF of the current organization and
+    sub-organizations with portrait and memberships. Redirects to the  file if
+    it already exists.
+
+    """
 
     grok.name('pdfexport')
     grok.context(IOrganization)
@@ -224,20 +207,167 @@ class PdfExportView(grok.View):
     template = None
 
     def render(self):
-        report = OrganizationsReport(root=self.context, toc=False)
-        filehandle = report.build(self.context, self.request)
+        filename = PDF_EXPORT_FILENAME
 
-        filename = self.context.title
-        filename = codecs.utf_8_encode('filename="%s.pdf"' % filename)[0]
-        self.request.RESPONSE.setHeader('Content-disposition', filename)
-        self.request.RESPONSE.setHeader('Content-Type', 'application/pdf')
+        if filename in self.context and self.request.get('force') == '1':
+            self.context.manage_delObjects([filename])
 
-        response = filehandle.getvalue()
-        filehandle.seek(0, os.SEEK_END)
+        if filename not in self.context:
+            log.info(
+                u'creating pdf export of %s on the fly' % (
+                    self.context.title
+                )
+            )
 
-        filesize = filehandle.tell()
-        filehandle.close()
+            report = OrganizationsReport(root=self.context, toc=False)
+            filehandle = report.build(self.context, self.request)
 
-        self.request.RESPONSE.setHeader('Content-Length', filesize)
+            self.context.invokeFactory(type_name='File', id=filename)
+            file = self.context.get(filename)
+            file.setContentType('application/pdf')
+            file.setExcludeFromNav(True)
+            file.setFilename(filename)
+            file.setFile(filehandle.getvalue())
+            file.reindexObject()
 
-        return response
+        self.response.redirect(filename)
+
+
+class PdfExportScheduler(object):
+    """ Schedules the creation of all PDFs nightly at 0:30.
+
+    """
+
+    _lock = Lock()
+
+    def __init__(self):
+        self.next_run = 0
+        self.running = False
+
+    def get_next_run(self, now=None):
+        if now is None:
+            now = datetime.now()
+
+        # Schedule next run tomorrow at 0:30
+        at_hours = 0
+        at_minutes = 30
+        days = 1
+        if now.hour < (at_hours + 1) and now.minute < at_minutes:
+            days = 0
+        next_run = datetime(now.year, now.month, now.day)
+        next_run = next_run + timedelta(
+            days=days, hours=at_hours, minutes=at_minutes
+        )
+
+        return next_run
+
+    @synchronized(_lock)
+    def run(self, context, request, force, now=None):
+
+        result = False
+
+        if self.running:
+            log.info(u'already exporting')
+            return
+
+        if now is None:
+            now = datetime.now()
+
+        if os.getenv('seantis_agencies_export', False) == 'true':
+            if not self.next_run:
+                self.next_run = self.get_next_run(now)
+
+            if (now > self.next_run) or force:
+                self.running = True
+                try:
+                    self.next_run = self.get_next_run(now)
+                    self.export_single_pdfs(context, request)
+                    self.export_full_pdf(context, request)
+                    result = True
+                finally:
+                    self.running = False
+
+        return result
+
+    def export_full_pdf(self, context, request):
+        filename = codecs.utf_8_encode('%s.pdf' % context.title)[0]
+
+        log.info('begin exporting to %s' % (filename))
+
+        filehandle = OrganizationsReport().build(context, request)
+
+        if filename in context:
+            context.manage_delObjects([filename])
+
+        context.invokeFactory(type_name='File', id=filename)
+        file = context.get(filename)
+        file.setContentType('application/pdf')
+        file.setExcludeFromNav(True)
+        file.setFilename(filename)
+        file.setFile(filehandle.getvalue())
+        file.reindexObject()
+
+        log.info('exported to %s' % (filename))
+
+    def export_single_pdf(self, context, request):
+        filename = PDF_EXPORT_FILENAME
+
+        log.info(u'creating pdf export of %s' % (context.title))
+
+        report = OrganizationsReport(root=context, toc=False)
+        filehandle = report.build(context, request)
+
+        if filename in context:
+            context.manage_delObjects([filename])
+
+        context.invokeFactory(type_name='File', id=filename)
+        file = context.get(filename)
+        file.setContentType('application/pdf')
+        file.setExcludeFromNav(True)
+        file.setFilename(filename)
+        file.setFile(filehandle.getvalue())
+        file.reindexObject()
+
+        children = [o.getObject() for o in context.suborganizations()]
+        for child in children:
+            self.export_single_pdf(child, request)
+
+    def export_single_pdfs(self, context, request):
+        catalog = api.portal.get_tool('portal_catalog')
+        folder_path = '/'.join(context.getPhysicalPath())
+        organizations = catalog(
+            path={'query': folder_path, 'depth': 1},
+            portal_type='seantis.agencies.organization',
+            sort_on='getObjPositionInParent'
+        )
+
+        for organization in [o.getObject() for o in organizations]:
+            self.export_single_pdf(organization, request)
+
+
+export_scheduler = PdfExportScheduler()
+
+
+class PdfExportViewFull(grok.View):
+    """ View to invoke the creation of all PDFs nightly
+    """
+
+    grok.name('pdfexport-agencies')
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.View')
+
+    template = None
+
+    def render(self):
+        self.request.response.setHeader("Content-type", "text/plain")
+
+        result = False
+
+        force = self.request.get('force') == '1'
+        with unrestricted.run_as('Manager'):
+            result = export_scheduler.run(self.context, self.request, force)
+
+        if result:
+            return u'PDFs exported'
+        else:
+            return u'PDFs not exported'

@@ -2,8 +2,11 @@
 Changelog
 ---------
 
-0.6 (unreleased)
+0.6 (2015-03-10)
 ~~~~~~~~~~~~~~~~
+
+- Export the PDFs nightly using the clock server. Implements #7
+  [msom]
 
 - Use unicode_collate_sortkey in membership sorting. Fixes #8
   [msom]

@@ -1,4 +1,7 @@
 import mock
+import os
+
+from datetime import datetime, timedelta
 
 from seantis.agencies import tests
 
@@ -7,6 +10,8 @@ class TestPdfExport(tests.BrowserTestCase):
 
     def setUp(self):
         super(TestPdfExport, self).setUp()
+
+        os.environ['seantis_agencies_export'] = 'true'
 
         browser = self.admin_browser
 
@@ -30,15 +35,38 @@ class TestPdfExport(tests.BrowserTestCase):
         super(TestPdfExport, self).tearDown()
 
     @mock.patch('kantonzugpdf.ReportZug.get_logo')
-    def test_export_pdf_empty(self, get_logo):
+    def test_export_pdfs_not_instance(self, get_logo):
         get_logo.return_value = None
         browser = self.new_browser()
-        browser.open('/pdfexport-agencies')
 
-        self.assertNotEquals(browser.contents, '')
+        del os.environ['seantis_agencies_export']
+        self.assertFalse(os.getenv('seantis_agencies_export', False) == 'true')
+        browser.open('/pdfexport-agencies?force=1')
+        self.assertEquals(browser.contents, u'PDFs not exported')
+
+        os.environ['seantis_agencies_export'] = 'true'
+        self.assertTrue(os.getenv('seantis_agencies_export', False) == 'true')
+        browser.open('/pdfexport-agencies?force=1')
+        self.assertEquals(browser.contents, u'PDFs exported')
+
+    @mock.patch('kantonzugpdf.ReportZug.get_logo')
+    def test_export_pdfs_unscheduled(self, get_logo):
+        get_logo.return_value = None
+        browser = self.new_browser()
+
+        browser.open('/pdfexport-agencies')
+        self.assertEquals(browser.contents, u'PDFs not exported')
+
+    @mock.patch('kantonzugpdf.ReportZug.get_logo')
+    def test_export_pdfs_empty(self, get_logo):
+        get_logo.return_value = None
+        browser = self.new_browser()
+
+        browser.open('/pdfexport-agencies?force=1')
+        self.assertEquals(browser.contents, u'PDFs exported')
+        browser.open('/Plone site.pdf')
         self.assertEquals(browser.headers['Content-Type'], 'application/pdf')
-        self.assertEquals(browser.headers['Content-disposition'],
-                          'filename="Organizations.pdf"')
+        self.assertNotEquals(browser.contents, '')
 
     @mock.patch('kantonzugpdf.ReportZug.get_logo')
     def test_export_pdf(self, get_logo):
@@ -54,9 +82,42 @@ class TestPdfExport(tests.BrowserTestCase):
         self.add_organization(title='h', path='/a/b/c/d/e/f/g')
 
         browser = self.new_browser()
-        browser.open('/pdfexport-agencies')
-
-        self.assertNotEquals(browser.contents, '')
+        browser.open('/pdfexport-agencies?force=1')
+        self.assertEquals(browser.contents, u'PDFs exported')
+        browser.open('/Plone site.pdf')
         self.assertEquals(browser.headers['Content-Type'], 'application/pdf')
-        self.assertEquals(browser.headers['Content-disposition'],
-                          'filename="Organizations.pdf"')
+        self.assertNotEquals(browser.contents, '')
+
+    def test_scheduler_next_run(self):
+        from seantis.agencies.browser.pdfexport import export_scheduler
+
+        real_now = datetime.today()
+        today = datetime(real_now.year, real_now.month, real_now.day)
+        tomorrow = today + timedelta(days=1)
+
+        next_run = export_scheduler.get_next_run(today)
+        self.assertEqual(next_run, today + timedelta(minutes=30))
+
+        now = today + timedelta(minutes=10)
+        next_run = export_scheduler.get_next_run(now)
+        self.assertEqual(next_run, today + timedelta(minutes=30))
+
+        now = today + timedelta(minutes=29)
+        next_run = export_scheduler.get_next_run(now)
+        self.assertEqual(next_run, today + timedelta(minutes=30))
+
+        now = today + timedelta(minutes=30)
+        next_run = export_scheduler.get_next_run(now)
+        self.assertEqual(next_run, tomorrow + timedelta(minutes=30))
+
+        now = today + timedelta(hours=1, minutes=30)
+        next_run = export_scheduler.get_next_run(now)
+        self.assertEqual(next_run, tomorrow + timedelta(minutes=30))
+
+        now = today + timedelta(hours=4)
+        next_run = export_scheduler.get_next_run(now)
+        self.assertEqual(next_run, tomorrow + timedelta(minutes=30))
+
+        now = today + timedelta(hours=12)
+        next_run = export_scheduler.get_next_run(now)
+        self.assertEqual(next_run, tomorrow + timedelta(minutes=30))
