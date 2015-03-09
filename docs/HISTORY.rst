@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.6 (2015-03-10)
+0.6 (2015-03-09)
 ~~~~~~~~~~~~~~~~
 
 - Export the PDFs nightly using the clock server. Implements #7
