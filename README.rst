@@ -3,6 +3,49 @@ Seantis Agencies
 
 A directory of people for (government) agencies.
 
+Installation
+------------
+
+1. Use Plone 4.3 or newer
+
+::
+
+    extends =
+        http://dist.plone.org/release/4.3/versions.cfg
+
+2. Add the module to your instance eggs
+
+::
+
+    [instance]
+    eggs +=
+        seantis.agencies
+
+
+3. Ensure that the i18n files are compiled by adding
+
+::
+
+    [instance]
+    ...
+    environment-vars =
+        ...
+        zope_i18n_compile_mo_files true
+
+4. Setup up export clock servers for one instance (or set up a cron job getting the corresponding views described below).
+
+
+::
+
+    [instance]
+    ...
+    environment-vars =
+        ...
+        seantis_agencies_export true
+
+
+5. Install seantis.agencies under add-ons in the control panel
+
 Views
 -----
 
