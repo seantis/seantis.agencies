@@ -7,7 +7,7 @@ Views
 -----
 
 pdfexport
-^^^^^^^^^
+~~~~~~~~~
 Called on a organzation.
 
 Creates a PDF of the current organization and sub-organizations with portrait
@@ -16,7 +16,7 @@ and memberships. Redirects to the  file if it already exists.
 Use *force* (*/pdfexport?force=1*) to force the creation of the PDF.
 
 pdfexport-agencies
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 Called on the site root.
 
 Exports - scheduled at 0:30 am - 1) all organizations and sub-organizations
