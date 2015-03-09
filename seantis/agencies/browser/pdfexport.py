@@ -273,19 +273,18 @@ class PdfExportScheduler(object):
         if now is None:
             now = datetime.now()
 
-        if os.getenv('seantis_agencies_export', False) == 'true':
-            if not self.next_run:
-                self.next_run = self.get_next_run(now)
+        if not self.next_run:
+            self.next_run = self.get_next_run(now)
 
-            if (now > self.next_run) or force:
-                self.running = True
-                try:
-                    self.next_run = self.get_next_run(now)
-                    self.export_single_pdfs(context, request)
-                    self.export_full_pdf(context, request)
-                    result = True
-                finally:
-                    self.running = False
+        if (now > self.next_run) or force:
+            self.running = True
+            try:
+                self.next_run = self.get_next_run(now)
+                self.export_single_pdfs(context, request)
+                self.export_full_pdf(context, request)
+                result = True
+            finally:
+                self.running = False
 
         return result
 

@@ -5,7 +5,8 @@ Changelog
 0.6.1 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Don't support multiple instances for PDF export for now.
+  [msom]
 
 
 0.6 (2015-03-09)

@@ -32,19 +32,7 @@ Installation
         ...
         zope_i18n_compile_mo_files true
 
-4. Setup up export clock servers for one instance (or set up a cron job getting the corresponding views described below).
-
-
-::
-
-    [instance]
-    ...
-    environment-vars =
-        ...
-        seantis_agencies_export true
-
-
-5. Install seantis.agencies under add-ons in the control panel
+4. Install seantis.agencies under add-ons in the control panel
 
 Views
 -----

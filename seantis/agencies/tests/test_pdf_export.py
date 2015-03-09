@@ -11,8 +11,6 @@ class TestPdfExport(tests.BrowserTestCase):
     def setUp(self):
         super(TestPdfExport, self).setUp()
 
-        os.environ['seantis_agencies_export'] = 'true'
-
         browser = self.admin_browser
 
         browser.open(self.baseurl + '/++add++seantis.agencies.organization')
@@ -33,21 +31,6 @@ class TestPdfExport(tests.BrowserTestCase):
         self.admin_browser.getControl('Delete').click()
 
         super(TestPdfExport, self).tearDown()
-
-    @mock.patch('kantonzugpdf.ReportZug.get_logo')
-    def test_export_pdfs_not_instance(self, get_logo):
-        get_logo.return_value = None
-        browser = self.new_browser()
-
-        del os.environ['seantis_agencies_export']
-        self.assertFalse(os.getenv('seantis_agencies_export', False) == 'true')
-        browser.open('/pdfexport-agencies?force=1')
-        self.assertEquals(browser.contents, u'PDFs not exported')
-
-        os.environ['seantis_agencies_export'] = 'true'
-        self.assertTrue(os.getenv('seantis_agencies_export', False) == 'true')
-        browser.open('/pdfexport-agencies?force=1')
-        self.assertEquals(browser.contents, u'PDFs exported')
 
     @mock.patch('kantonzugpdf.ReportZug.get_logo')
     def test_export_pdfs_unscheduled(self, get_logo):
