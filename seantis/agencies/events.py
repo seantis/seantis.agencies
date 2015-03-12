@@ -13,7 +13,7 @@ def on_organization_modified(context, event=None):
     catalog = api.portal.get_tool('portal_catalog')
     memberships = catalog(
         object_provides=IMembership.__identifier__,
-        path='/'.join(context.getPhysicalPath()), depth=1
+        path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1}
     )
     for membership in memberships:
         notify(ObjectModifiedEvent(membership.getObject()))
