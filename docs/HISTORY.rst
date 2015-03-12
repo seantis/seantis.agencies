@@ -5,15 +5,14 @@ Changelog
 0.6.2 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
-
+- Update memberships if the parent folder has changed. Fixes #11
+  [msom]
 
 0.6.1 (2015-03-09)
 ~~~~~~~~~~~~~~~~~~
 
 - Don't support multiple instances for PDF export for now.
   [msom]
-
 
 0.6 (2015-03-09)
 ~~~~~~~~~~~~~~~~
