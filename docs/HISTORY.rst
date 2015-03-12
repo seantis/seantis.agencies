@@ -8,6 +8,8 @@ Changelog
 - Update memberships if the parent folder has changed. Fixes #11
   [msom]
 
+- Use transaction savepoint in PDF export, add view for PDF export. Updates #7
+
 0.6.1 (2015-03-09)
 ~~~~~~~~~~~~~~~~~~
 

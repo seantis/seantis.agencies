@@ -5,6 +5,7 @@ import os
 import codecs
 import re
 import tempfile
+import transaction
 
 from datetime import datetime, date, timedelta
 from io import BytesIO
@@ -193,14 +194,35 @@ class OrganizationsReport(ReportZug):
                                        idx == len(children) - 1)
 
 
-class PdfExportView(grok.View):
+def create_and_save_pdf(filename, context, request, root, toc):
+    """ Create a PDF of the current/all organization(s) and sub-organizations
+    with portrait, memberships, and possibly table of contents and save it in
+    the organization.
+
+    """
+    report = OrganizationsReport(root=root, toc=toc)
+    filehandle = report.build(context, request)
+
+    if filename in context:
+        context.manage_delObjects([filename])
+
+    context.invokeFactory(type_name='File', id=filename)
+    file = context.get(filename)
+    file.setContentType('application/pdf')
+    file.setExcludeFromNav(True)
+    file.setFilename(filename)
+    file.setFile(filehandle.getvalue())
+    file.reindexObject()
+
+
+class PdfAtOrganizationView(grok.View):
     """ View to create and store a PDF of the current organization and
     sub-organizations with portrait and memberships. Redirects to the  file if
     it already exists.
 
     """
 
-    grok.name('pdfexport')
+    grok.name('pdf')
     grok.context(IOrganization)
     grok.require('zope2.View')
 
@@ -209,26 +231,44 @@ class PdfExportView(grok.View):
     def render(self):
         filename = PDF_EXPORT_FILENAME
 
-        if filename in self.context and self.request.get('force') == '1':
-            self.context.manage_delObjects([filename])
+        if filename not in self.context or self.request.get('force') == '1':
+            log.info(u'creating pdf export of %s' % (self.context.title))
 
-        if filename not in self.context:
-            log.info(
-                u'creating pdf export of %s on the fly' % (
-                    self.context.title
+            with unrestricted.run_as('Manager'):
+                create_and_save_pdf(
+                    filename, self.context, self.request, self.context, False
                 )
-            )
 
-            report = OrganizationsReport(root=self.context, toc=False)
-            filehandle = report.build(self.context, self.request)
+            log.info(u'pdf export of %s created' % (self.context.title))
 
-            self.context.invokeFactory(type_name='File', id=filename)
-            file = self.context.get(filename)
-            file.setContentType('application/pdf')
-            file.setExcludeFromNav(True)
-            file.setFilename(filename)
-            file.setFile(filehandle.getvalue())
-            file.reindexObject()
+        self.response.redirect(filename)
+
+
+class PdfAtRootView(grok.View):
+    """ View to create and store a PDF of all organizations and
+    sub-organizations with table of contents, portrait and memberships.
+    Redirects to the  file if it already exists.
+
+    """
+
+    grok.name('pdf')
+    grok.context(IPloneSiteRoot)
+    grok.require('zope2.View')
+
+    template = None
+
+    def render(self):
+        filename = PDF_EXPORT_FILENAME
+
+        if filename not in self.context or self.request.get('force') == '1':
+            log.info(u'creating full pdf export')
+
+            with unrestricted.run_as('Manager'):
+                create_and_save_pdf(
+                    filename, self.context, self.request, None, True
+                )
+
+            log.info(u'full pdf exported')
 
         self.response.redirect(filename)
 
@@ -289,43 +329,19 @@ class PdfExportScheduler(object):
         return result
 
     def export_full_pdf(self, context, request):
-        filename = codecs.utf_8_encode('%s.pdf' % context.title)[0]
+        filename = PDF_EXPORT_FILENAME
 
-        log.info('begin exporting to %s' % (filename))
-
-        filehandle = OrganizationsReport().build(context, request)
-
-        if filename in context:
-            context.manage_delObjects([filename])
-
-        context.invokeFactory(type_name='File', id=filename)
-        file = context.get(filename)
-        file.setContentType('application/pdf')
-        file.setExcludeFromNav(True)
-        file.setFilename(filename)
-        file.setFile(filehandle.getvalue())
-        file.reindexObject()
-
-        log.info('exported to %s' % (filename))
+        log.info('begin exporting full pdf')
+        create_and_save_pdf(filename, context, request, None, True)
+        log.info('full pdf exported')
 
     def export_single_pdf(self, context, request):
         filename = PDF_EXPORT_FILENAME
 
         log.info(u'creating pdf export of %s' % (context.title))
+        create_and_save_pdf(filename, context, request, context, False)
 
-        report = OrganizationsReport(root=context, toc=False)
-        filehandle = report.build(context, request)
-
-        if filename in context:
-            context.manage_delObjects([filename])
-
-        context.invokeFactory(type_name='File', id=filename)
-        file = context.get(filename)
-        file.setContentType('application/pdf')
-        file.setExcludeFromNav(True)
-        file.setFilename(filename)
-        file.setFile(filehandle.getvalue())
-        file.reindexObject()
+        transaction.savepoint(optimistic=True)
 
         children = [o.getObject() for o in context.suborganizations()]
         for child in children:
