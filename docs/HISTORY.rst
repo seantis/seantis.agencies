@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.6.3 (unreleased)
+0.6.3 (2015-03-16)
 ~~~~~~~~~~~~~~~~~~
 
 - Use a more robust way to implement the last upgrade step.
