@@ -5,6 +5,7 @@ from zope.component import getUtility
 from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 
+from seantis.people import catalog_id
 from seantis.people.supermodel.indexing import update_related_indexes
 
 
@@ -53,3 +54,10 @@ def upgrade_1003_to_1004(context):
     upgrade_portal_type(
         'seantis.agencies.organization', 'seantis.agencies', 'default'
     )
+
+
+def upgrade_1004_to_1005(context):
+    catalog = api.portal.get_tool(catalog_id)
+    for result in catalog.unrestrictedSearchResults():
+        member = result.getObject()
+        member.reindexObject()
