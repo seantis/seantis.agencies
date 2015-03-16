@@ -5,6 +5,9 @@ Changelog
 0.6.2 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
+- Decrease CPU usage during PDF expoert. Updates #7.
+  [msom]
+
 - Update memberships if the parent folder has changed. Fixes #11
   [msom]
 

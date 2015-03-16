@@ -5,6 +5,7 @@ import os
 import codecs
 import re
 import tempfile
+import time
 import transaction
 
 from datetime import datetime, date, timedelta
@@ -189,6 +190,8 @@ class OrganizationsReport(ReportZug):
         else:
             self.pdf.spacer()
 
+        time.sleep(0)
+
         for idx, child in enumerate(children):
             self.populate_organization(child, level + 1,
                                        idx == len(children) - 1)
@@ -342,6 +345,8 @@ class PdfExportScheduler(object):
         create_and_save_pdf(filename, context, request, context, False)
 
         transaction.savepoint(optimistic=True)
+
+        time.sleep(1)
 
         children = [o.getObject() for o in context.suborganizations()]
         for child in children:
