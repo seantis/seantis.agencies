@@ -2,16 +2,13 @@
 Changelog
 ---------
 
-0.6.2 (unreleased)
+0.6.2 (2015-03-16)
 ~~~~~~~~~~~~~~~~~~
-
-- Decrease CPU usage during PDF expoert. Updates #7.
-  [msom]
 
 - Update memberships if the parent folder has changed. Fixes #11
   [msom]
 
-- Use transaction savepoint in PDF export, add view for PDF export. Updates #7
+- Improve PDF export: Add a add view, use transaction savepoints, decrease CPU usage. Updates #7
   [msom]
 
 0.6.1 (2015-03-09)
