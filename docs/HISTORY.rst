@@ -5,7 +5,8 @@ Changelog
 0.6.3 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Use a more robust way to implement the last upgrade step.
+  [msom]
 
 0.6.2 (2015-03-16)
 ~~~~~~~~~~~~~~~~~~

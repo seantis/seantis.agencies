@@ -58,6 +58,4 @@ def upgrade_1003_to_1004(context):
 
 def upgrade_1004_to_1005(context):
     catalog = api.portal.get_tool(catalog_id)
-    for result in catalog.unrestrictedSearchResults():
-        member = result.getObject()
-        member.reindexObject()
+    catalog.refreshCatalog(clear=1)
