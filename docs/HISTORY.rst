@@ -9,6 +9,7 @@ Changelog
   [msom]
 
 - Use transaction savepoint in PDF export, add view for PDF export. Updates #7
+  [msom]
 
 0.6.1 (2015-03-09)
 ~~~~~~~~~~~~~~~~~~
