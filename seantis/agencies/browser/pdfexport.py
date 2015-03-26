@@ -144,21 +144,21 @@ class OrganizationsReport(ReportZug):
         memberships = []
         for brain in organization.memberships():
             membership = brain.getObject()
+            person = membership.person.to_object
+            fields = organization.export_fields
+
+            role = membership.role if 'role' in fields else ''
             text = ''
             name = ''
-            person = membership.person.to_object
+
             if person:
                 name = person.title
-                fields = ['title', 'year', 'academic_title', 'occupation',
-                          'address', 'political_party']
                 text = ', '.join([
-                    getattr(person, field) for field in fields
-                    if getattr(person, field)
+                    getattr(person, field, '') for field in fields
+                    if getattr(person, field, '')
                 ])
 
-            memberships.append((
-                membership.role, membership.prefix, text, name
-            ))
+            memberships.append((role, membership.prefix, text, name))
 
         if organization.display_alphabetically:
             sortkey = lambda m: tools.unicode_collate_sortkey()(m[3])
