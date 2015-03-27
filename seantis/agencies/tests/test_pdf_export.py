@@ -15,7 +15,8 @@ class TestPdfExport(tests.BrowserTestCase):
         browser = self.admin_browser
 
         browser.open(self.baseurl + '/++add++seantis.agencies.organization')
-        browser.getControl('Title').value = 'organizations'
+
+        browser.getControl(name='form.widgets.title').value = 'organizations'
         browser.getControl('Save').click()
         self.orgs_url = self.baseurl + '/organizations'
 

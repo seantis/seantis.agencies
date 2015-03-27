@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-0.6.4 (unreleased)
-~~~~~~~~~~~~~~~~~~
+0.7 (unreleased)
+~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Make exported fields selectable. Implements #15.
+  [msom]
 
 0.6.3 (2015-03-16)
 ~~~~~~~~~~~~~~~~~~

@@ -45,6 +45,6 @@ class BrowserTestCase(FunctionalTestCase):
 
         url = self.orgs_url + path + '/++add++seantis.agencies.organization'
         browser.open(url)
-        browser.getControl('Title').value = title
+        browser.getControl(name='form.widgets.title').value = title
         browser.getControl('Portrait').value = portrait
         browser.getControl('Save').click()
