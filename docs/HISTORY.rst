@@ -8,6 +8,9 @@ Changelog
 - Make exported fields selectable. Implements #15.
   [msom]
 
+- Display memberships in person detail view at the bottom.
+  [msom]
+
 0.6.3 (2015-03-16)
 ~~~~~~~~~~~~~~~~~~
 
