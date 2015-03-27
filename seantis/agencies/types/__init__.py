@@ -6,6 +6,7 @@ from five import grok
 
 from zope import schema
 from zope.interface import Interface, Invalid
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from plone import api
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -54,8 +55,41 @@ class IOrganization(form.Schema):
         required=False
     )
 
+    display_alphabetically = schema.Bool(
+        title=_(u'Display memberships alphabetically'),
+        description=_(
+            u'Tick this box to sort memberships alphabetically by name rather '
+            u'than by their position in the folder.'
+        ),
+        default=False
+    )
+
+    export_fields = schema.List(
+        title=_(u"Fields to export"),
+        description=_(u"Fields to include in the PDF export"),
+        required=False,
+        value_type=schema.Choice(
+            vocabulary=SimpleVocabulary(terms=[
+                SimpleTerm(value=u'role', title=_('Role')),
+                SimpleTerm(value=u'lastname', title=_('Last Name')),
+                SimpleTerm(value=u'firstname', title=_('First Name')),
+                SimpleTerm(value=u'year', title=_('Year')),
+                SimpleTerm(value=u'academic_title', title=_('Academic Title')),
+                SimpleTerm(value=u'occupation', title=_('Occupation')),
+                SimpleTerm(value=u'address', title=_('Address')),
+                SimpleTerm(value=u'political_party',
+                           title=_('Political Party')),
+                SimpleTerm(value=u'phone', title=_('Phone')),
+                SimpleTerm(value=u'direct_number', title=_('Direct number')),
+            ])
+        ),
+        default=['role', 'lastname', 'firstname']
+    )
+
 
 class Organization(Container):
+
+    pdfexportable = True
 
     def memberships(self):
         catalog = api.portal.get_tool('portal_catalog')

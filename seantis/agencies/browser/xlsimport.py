@@ -92,7 +92,8 @@ class ImportView(form.Form):
         organizations = {}
         for row in range(1, sheet.nrows):
             try:
-                values = [cell.value.strip() for cell in sheet.row(row)]
+                values = [cell.value.strip() for cell in sheet.row(row)[:-1]]
+                values = values + [str(sheet.row(row)[-1].value)]
                 assert len(values) == len(TITLES_ORGANIZATION)
                 assert values[0] not in organizations
 
@@ -168,6 +169,11 @@ class ImportView(form.Form):
             (key, unicode(value)) for (key, value) in organization.iteritems()
             if not key.startswith('_')
         )
+        da = kwargs['display_alphabetically']
+        if da == u'0' or da == u'0.0':
+            kwargs['display_alphabetically'] = False
+        else:
+            kwargs['display_alphabetically'] = True
         content = createContentInContainer(
             context, "seantis.agencies.organization", **kwargs
         )

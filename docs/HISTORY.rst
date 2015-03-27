@@ -2,7 +2,60 @@
 Changelog
 ---------
 
-0.4 (unreleased)
+0.7 (unreleased)
+~~~~~~~~~~~~~~~~
+
+- Make exported fields selectable. Implements #15.
+  [msom]
+
+0.6.3 (2015-03-16)
+~~~~~~~~~~~~~~~~~~
+
+- Use a more robust way to implement the last upgrade step.
+  [msom]
+
+0.6.2 (2015-03-16)
+~~~~~~~~~~~~~~~~~~
+
+- Update memberships if the parent folder has changed. Fixes #11
+  [msom]
+
+- Improve PDF export: Add a add view, use transaction savepoints, decrease CPU usage. Updates #7
+  [msom]
+
+0.6.1 (2015-03-09)
+~~~~~~~~~~~~~~~~~~
+
+- Don't support multiple instances for PDF export for now.
+  [msom]
+
+0.6 (2015-03-09)
+~~~~~~~~~~~~~~~~
+
+- Export the PDFs nightly using the clock server. Implements #7
+  [msom]
+
+- Use unicode_collate_sortkey in membership sorting. Fixes #8
+  [msom]
+
+0.5.1 (2015-03-02)
+~~~~~~~~~~~~~~~~~~
+
+- Show portrait and memberships of root organizations in PDF. Fixes #6.
+
+0.5 (2015-02-26)
+~~~~~~~~~~~~~~~~
+
+- Add Option to Organization for how to Display Memberships #5.
+  [msom]
+
+- Change column widths of membership tables in PDF.
+  [msom]
+
+- Add PDF Export View to Organization #4.
+  [msom]
+
+0.4 (2015-02-24)
 ~~~~~~~~~~~~~~~~
 
 - Limit the visible levels in the table of contents of the PDF.
@@ -11,6 +64,8 @@ Changelog
 - Use less page breaks in the PDF.
   [msom]
 
+- Fix displaying memberships with deleted members.
+  [msom]
 
 0.3 (2015-02-09)
 ~~~~~~~~~~~~~~~~

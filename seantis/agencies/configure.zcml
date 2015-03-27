@@ -31,4 +31,7 @@
 <!-- Upgrades -->
 <include file="upgrades.zcml" />
 
+<!-- Events -->
+<include file="events.zcml" />
+
 </configure>

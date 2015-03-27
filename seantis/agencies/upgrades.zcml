@@ -16,4 +16,25 @@
         handler=".upgrades.upgrade_1001_to_1002"
     />
 
+    <genericsetup:upgradeStep
+        title="Add option to organization"
+        source="1002" destination="1003"
+        profile="seantis.agencies:default"
+        handler=".upgrades.upgrade_1002_to_1003"
+    />
+
+    <genericsetup:upgradeStep
+        title="Store PDF export in file"
+        source="1003" destination="1004"
+        profile="seantis.agencies:default"
+        handler=".upgrades.upgrade_1003_to_1004"
+    />
+
+    <genericsetup:upgradeStep
+        title="Reindex members"
+        source="1004" destination="1005"
+        profile="seantis.agencies:default"
+        handler=".upgrades.upgrade_1004_to_1005"
+    />
+
 </configure>
