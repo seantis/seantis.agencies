@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.7 (unreleased)
+0.7 (2015-03-31)
 ~~~~~~~~~~~~~~~~
 
 - Make exported fields selectable. Implements #15.
