@@ -5,7 +5,7 @@ Changelog
 0.7.1 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Reduce querying objects in nightly PDF export. Updates #12.
 
 
 0.7 (2015-03-31)

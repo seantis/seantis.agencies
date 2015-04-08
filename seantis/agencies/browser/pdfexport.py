@@ -32,7 +32,89 @@ from seantis.plonetools import tools, unrestricted
 PDF_EXPORT_FILENAME = u'exported_pdf.pdf'
 
 
+def fetch_organisation(organization, level=0, last_child=False):
+    """ Returns the export data of an organisation with all its
+    sub-organizations.
+
+    """
+
+    data = {
+        'title': '',
+        'portrait': '',
+        'memberships': [],
+        'children': [],
+        'context': organization
+    }
+
+    if level:
+        data['title'] = organization.title
+
+    if organization.portrait and organization.portrait.strip():
+        # remove target attribute from link tags
+        data['portrait'] = re.sub(
+            r"target=[\"'].*\w[\"']", "", organization.portrait
+        )
+
+    memberships = []
+    for brain in organization.memberships():
+        membership = brain.getObject()
+        person = membership.person.to_object
+        fields = organization.export_fields
+
+        role = membership.role if 'role' in fields else ''
+        text = ''
+        name = ''
+
+        if person:
+            name = person.title
+            text = ', '.join([
+                getattr(person, field, '') for field in fields
+                if getattr(person, field, '')
+            ])
+
+        memberships.append((role, membership.prefix, text, name))
+
+    if organization.display_alphabetically:
+        sortkey = lambda m: tools.unicode_collate_sortkey()(m[3])
+        memberships = sorted(memberships, key=sortkey)
+
+    table_data = []
+    for membership in memberships:
+        data['memberships'].append(membership[:3])
+
+    children = [o.getObject() for o in organization.suborganizations()]
+
+    for idx, child in enumerate(children):
+        data['children'].append(
+            fetch_organisation(child, level + 1, idx == len(children) - 1)
+        )
+
+    return data
+
+
+def fetch_organisations(context):
+    """ Returns the export data of all organisations with all its
+    sub-organizations within the context.
+
+    """
+
+    catalog = api.portal.get_tool('portal_catalog')
+    folder_path = '/'.join(context.getPhysicalPath())
+    organizations = catalog(
+        path={'query': folder_path, 'depth': 1},
+        portal_type='seantis.agencies.organization',
+        sort_on='getObjPositionInParent',
+    )
+
+    data = []
+    for organization in [o.getObject() for o in organizations]:
+        data.append(fetch_organisation(organization))
+
+    return data
+
+
 class OrganizationsPdf(PDF):
+    """ Extends kantonzugpdf.report.PDF with additional headings. """
 
     def h4(self, text, toc_level=3):
         self.add_toc_heading(text, self.style.heading4, None, None)
@@ -50,8 +132,10 @@ class OrganizationsReport(ReportZug):
 
     """
 
-    def __init__(self, root=None, toc=True):
-        self.root = root
+    def __init__(self, data, title, translator, toc=True):
+        self.data = data
+        self.title = title
+        self.translator = translator
         self.toc = toc
         self.file = BytesIO()
         self.pdf = OrganizationsPdf(self.file)
@@ -62,7 +146,7 @@ class OrganizationsReport(ReportZug):
             self.pdf.toc_numbering = None
 
     def translate(self, text):
-        return tools.translator(self.request, 'seantis.agencies')(text)
+        return self.translator(text)
 
     def get_print_date_text(self):
         date_text = api.portal.get_localized_time(
@@ -77,7 +161,6 @@ class OrganizationsReport(ReportZug):
 
     def populate(self):
         """ Builds the structure of the report before it gets rendered. """
-        self.title = self.context.title
         self.adjust_style()
 
         # First page contains the title and table of contents
@@ -87,85 +170,43 @@ class OrganizationsReport(ReportZug):
             self.pdf.pagebreak()
 
         # Iterate recursive over organizations
-        root_organizations = self.get_root_organizations()
+        for organization in self.data:
+            self.populate_organization(organization)
 
-        for organization in root_organizations:
-            self.populate_organization(organization, 0)
-
-    def get_root_organizations(self):
-        if self.root:
-            return [self.root]
-
-        catalog = api.portal.get_tool('portal_catalog')
-        folder_path = '/'.join(self.context.getPhysicalPath())
-        organizations = catalog(
-            path={'query': folder_path, 'depth': 1},
-            portal_type='seantis.agencies.organization',
-            sort_on='getObjPositionInParent',
-        )
-        return [organization.getObject() for organization in organizations]
-
-    def populate_organization(self, organization, level, last_child=False):
+    def populate_organization(self, organization, level=0, last_child=False):
 
         has_content = False
         if level:
             # Title
             if level == 1:
-                self.pdf.h1(organization.title)
+                self.pdf.h1(organization['title'])
             elif level == 2:
-                self.pdf.h2(organization.title)
+                self.pdf.h2(organization['title'])
             elif level == 3:
-                self.pdf.h3(organization.title)
+                self.pdf.h3(organization['title'])
             elif level == 4:
-                self.pdf.h4(organization.title)
+                self.pdf.h4(organization['title'])
             elif level == 5:
-                self.pdf.h5(organization.title)
+                self.pdf.h5(organization['title'])
             elif level == 6:
-                self.pdf.h6(organization.title)
+                self.pdf.h6(organization['title'])
             else:
-                self.pdf.p_markup(organization.title, self.pdf.style.heading6)
+                self.pdf.p_markup(organization['title'],
+                                  self.pdf.style.heading6)
 
         # Portrait
-        if organization.portrait and organization.portrait.strip():
+        if organization['portrait']:
             has_content = True
             self.pdf.spacer()
             try:
-                # remove target attribute from link tags
-                self.pdf.p_markup(
-                    re.sub(r"target=[\"'].*\w[\"']", "",
-                           organization.portrait)
-                )
+                self.pdf.p_markup(organization['portrait'])
             except ValueError:
                 # the portrait might have some unprocessable html code
-                self.pdf.p(organization.portrait)
-                log.warn('%s contains invalid markup' % organization.title)
-
-        # Table with memberships
-        memberships = []
-        for brain in organization.memberships():
-            membership = brain.getObject()
-            person = membership.person.to_object
-            fields = organization.export_fields
-
-            role = membership.role if 'role' in fields else ''
-            text = ''
-            name = ''
-
-            if person:
-                name = person.title
-                text = ', '.join([
-                    getattr(person, field, '') for field in fields
-                    if getattr(person, field, '')
-                ])
-
-            memberships.append((role, membership.prefix, text, name))
-
-        if organization.display_alphabetically:
-            sortkey = lambda m: tools.unicode_collate_sortkey()(m[3])
-            memberships = sorted(memberships, key=sortkey)
+                self.pdf.p(organization['portrait'])
+                log.warn('%s contains invalid markup' % organization['title'])
 
         table_data = []
-        for membership in memberships:
+        for membership in organization['memberships']:
             table_data.append([
                 MarkupParagraph(membership[0], self.pdf.style.normal),
                 MarkupParagraph(membership[1], self.pdf.style.normal),
@@ -178,11 +219,9 @@ class OrganizationsReport(ReportZug):
             self.pdf.spacer()
             self.pdf.table(table_data, table_columns)
 
-        children = [o.getObject() for o in organization.suborganizations()]
-
         break_page = (
             (level < 3 and has_content) or
-            (level == 3 and not len(children)) or
+            (level == 3 and not len(organization['children'])) or
             (level == 4 and last_child)
         )
         if break_page:
@@ -192,18 +231,20 @@ class OrganizationsReport(ReportZug):
 
         time.sleep(0)
 
-        for idx, child in enumerate(children):
-            self.populate_organization(child, level + 1,
-                                       idx == len(children) - 1)
+        for idx, child in enumerate(organization['children']):
+            self.populate_organization(
+                child, level + 1, idx == len(organization['children']) - 1
+            )
 
 
-def create_and_save_pdf(filename, context, request, root, toc):
+def create_and_save_pdf(data, filename, context, request, toc):
     """ Create a PDF of the current/all organization(s) and sub-organizations
     with portrait, memberships, and possibly table of contents and save it in
     the organization.
 
     """
-    report = OrganizationsReport(root=root, toc=toc)
+    translator = tools.translator(request, 'seantis.agencies')
+    report = OrganizationsReport(data, context.title, translator, toc=toc)
     filehandle = report.build(context, request)
 
     if filename in context:
@@ -238,8 +279,9 @@ class PdfAtOrganizationView(grok.View):
             log.info(u'creating pdf export of %s' % (self.context.title))
 
             with unrestricted.run_as('Manager'):
+                data = fetch_organisation(self.context)
                 create_and_save_pdf(
-                    filename, self.context, self.request, self.context, False
+                    [data], filename, self.context, self.request, False
                 )
 
             log.info(u'pdf export of %s created' % (self.context.title))
@@ -267,8 +309,9 @@ class PdfAtRootView(grok.View):
             log.info(u'creating full pdf export')
 
             with unrestricted.run_as('Manager'):
+                data = fetch_organisations(self.context)
                 create_and_save_pdf(
-                    filename, self.context, self.request, None, True
+                    data, filename, self.context, self.request, True
                 )
 
             log.info(u'full pdf exported')
@@ -323,46 +366,38 @@ class PdfExportScheduler(object):
             self.running = True
             try:
                 self.next_run = self.get_next_run(now)
-                self.export_single_pdfs(context, request)
-                self.export_full_pdf(context, request)
+                log.info(u'fetching export data')
+                data = fetch_organisations(context)
+                for organization in data:
+                    self.export_single_pdf(
+                        organization, organization['context'], request
+                    )
+                self.export_full_pdf(data, context, request)
                 result = True
             finally:
                 self.running = False
 
         return result
 
-    def export_full_pdf(self, context, request):
+    def export_full_pdf(self, data, context, request):
         filename = PDF_EXPORT_FILENAME
 
         log.info('begin exporting full pdf')
-        create_and_save_pdf(filename, context, request, None, True)
+        create_and_save_pdf(data, filename, context, request, True)
         log.info('full pdf exported')
 
-    def export_single_pdf(self, context, request):
+    def export_single_pdf(self, data, context, request):
         filename = PDF_EXPORT_FILENAME
 
         log.info(u'creating pdf export of %s' % (context.title))
-        create_and_save_pdf(filename, context, request, context, False)
+        create_and_save_pdf([data], filename, context, request, False)
 
         transaction.savepoint(optimistic=True)
 
         time.sleep(1)
 
-        children = [o.getObject() for o in context.suborganizations()]
-        for child in children:
-            self.export_single_pdf(child, request)
-
-    def export_single_pdfs(self, context, request):
-        catalog = api.portal.get_tool('portal_catalog')
-        folder_path = '/'.join(context.getPhysicalPath())
-        organizations = catalog(
-            path={'query': folder_path, 'depth': 1},
-            portal_type='seantis.agencies.organization',
-            sort_on='getObjPositionInParent'
-        )
-
-        for organization in [o.getObject() for o in organizations]:
-            self.export_single_pdf(organization, request)
+        for child in data['children']:
+            self.export_single_pdf(child, child['context'], request)
 
 
 export_scheduler = PdfExportScheduler()
