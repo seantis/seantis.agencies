@@ -37,25 +37,25 @@ Installation
 Views
 -----
 
-pdfexport
-~~~~~~~~~
-Called on a organzation.
+pdf
+~~~
+Called on a organization or on the site root.
 
 Creates a PDF of the current organization and sub-organizations with portrait
-and memberships. Redirects to the  file if it already exists.
+and memberships. Redirects to the  file if it already exists. If called on the
+site root, a table of contents is included.
 
-Use *force* (*/pdfexport?force=1*) to force the creation of the PDF.
+Use *force* (*/pdf?force=1*) to force the creation of the PDF.
 
-pdfexport-agencies
-~~~~~~~~~~~~~~~~~~
+pdf
+~~~
 Called on the site root.
 
 Exports - scheduled at 0:30 am - 1) all organizations and sub-organizations
-with memberships to a PDF located at the root, 2) a PDF for each organisation
-(calling */pdfexport* for every organization).
+with memberships to a PDF located at the root, 2) a PDF for each organization.
 
-Use *force* (*/pdfexport-agencies?run=1&force=1*) to bypass the scheduler and
-to force the creation of the PDFs.
+Use *force* (*/pdfexport-agencies?force=1*) to bypass the scheduler and to
+force the creation of the PDFs.
 
 
 Build Status
