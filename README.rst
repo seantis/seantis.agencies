@@ -47,8 +47,8 @@ site root, a table of contents is included.
 
 Use *force* (*/pdf?force=1*) to force the creation of the PDF.
 
-pdf
-~~~
+pdfexport-agencies
+~~~~~~~~~~~~~~~~~~
 Called on the site root.
 
 Exports - scheduled at 0:30 am - 1) all organizations and sub-organizations
