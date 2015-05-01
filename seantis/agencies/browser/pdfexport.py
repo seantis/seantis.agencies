@@ -50,9 +50,10 @@ def fetch_organisation(organization, level=0, last_child=False):
         data['title'] = organization.title
 
     if organization.portrait and organization.portrait.strip():
-        # remove target attribute from link tags
+        # remove target/class/title attribute from link tags
         data['portrait'] = re.sub(
-            r"target=[\"'].*\w[\"']", "", organization.portrait
+            r"(class|title|target)=[\"'][^\"^']*[\"']", "",
+            organization.portrait
         )
 
     memberships = []
