@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-0.7.2 (unreleased)
-~~~~~~~~~~~~~~~~~~
+0.8
+~~~
 
-Nothing yet.
+- Add start of membership to PDF.
+  [msom]
 
 
 0.7.1 (2015-04-08)

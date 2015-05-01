@@ -67,10 +67,15 @@ def fetch_organisation(organization, level=0, last_child=False):
 
         if person:
             name = person.title
-            text = ', '.join([
-                getattr(person, field, '') for field in fields
-                if getattr(person, field, '')
-            ])
+            text_fields = []
+            for field in fields:
+                if getattr(person, field, None):
+                    text_fields.append(getattr(person, field, ''))
+                if getattr(membership, field, None):
+                    if field == 'role':
+                        continue
+                    text_fields.append(getattr(membership, field, ''))
+            text = ', '.join(text_fields)
 
         memberships.append((role, membership.prefix, text, name))
 
