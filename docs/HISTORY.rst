@@ -2,8 +2,8 @@
 Changelog
 ---------
 
-0.8
-~~~
+0.8 (unreleased)
+~~~~~~~~~~~~~~~~
 
 - Add start of membership to PDF.
   [msom]
