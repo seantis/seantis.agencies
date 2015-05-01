@@ -17,6 +17,9 @@ Changelog
 - Change row widths in PDF.
   [msom]
 
+- Optimize event handling when renaming organizations.
+  [msom]
+
 0.7.1 (2015-04-08)
 ~~~~~~~~~~~~~~~~~~
 
