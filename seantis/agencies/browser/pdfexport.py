@@ -381,6 +381,7 @@ class PdfExportScheduler(object):
                 result = True
             finally:
                 self.running = False
+                log.info(u'export data finished')
 
         return result
 
