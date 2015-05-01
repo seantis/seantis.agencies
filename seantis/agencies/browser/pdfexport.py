@@ -253,16 +253,17 @@ def create_and_save_pdf(data, filename, context, request, toc):
     report = OrganizationsReport(data, context.title, translator, toc=toc)
     filehandle = report.build(context, request)
 
-    if filename in context:
-        context.manage_delObjects([filename])
+    with unrestricted.run_as('Manager'):
+        if filename in context:
+            context.manage_delObjects([filename])
 
-    context.invokeFactory(type_name='File', id=filename)
-    file = context.get(filename)
-    file.setContentType('application/pdf')
-    file.setExcludeFromNav(True)
-    file.setFilename(filename)
-    file.setFile(filehandle.getvalue())
-    file.reindexObject()
+        context.invokeFactory(type_name='File', id=filename)
+        file = context.get(filename)
+        file.setContentType('application/pdf')
+        file.setExcludeFromNav(True)
+        file.setFilename(filename)
+        file.setFile(filehandle.getvalue())
+        file.reindexObject()
 
 
 class PdfAtOrganizationView(grok.View):
@@ -284,11 +285,10 @@ class PdfAtOrganizationView(grok.View):
         if filename not in self.context or self.request.get('force') == '1':
             log.info(u'creating pdf export of %s' % (self.context.title))
 
-            with unrestricted.run_as('Manager'):
-                data = fetch_organisation(self.context)
-                create_and_save_pdf(
-                    [data], filename, self.context, self.request, False
-                )
+            data = fetch_organisation(self.context)
+            create_and_save_pdf(
+                [data], filename, self.context, self.request, False
+            )
 
             log.info(u'pdf export of %s created' % (self.context.title))
 
@@ -314,11 +314,10 @@ class PdfAtRootView(grok.View):
         if filename not in self.context or self.request.get('force') == '1':
             log.info(u'creating full pdf export')
 
-            with unrestricted.run_as('Manager'):
-                data = fetch_organisations(self.context)
-                create_and_save_pdf(
-                    data, filename, self.context, self.request, True
-                )
+            data = fetch_organisations(self.context)
+            create_and_save_pdf(
+                data, filename, self.context, self.request, True
+            )
 
             log.info(u'full pdf exported')
 
@@ -425,8 +424,7 @@ class PdfExportViewFull(grok.View):
         result = False
 
         force = self.request.get('force') == '1'
-        with unrestricted.run_as('Manager'):
-            result = export_scheduler.run(self.context, self.request, force)
+        result = export_scheduler.run(self.context, self.request, force)
 
         if result:
             return u'PDFs exported'

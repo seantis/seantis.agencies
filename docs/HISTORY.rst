@@ -11,6 +11,9 @@ Changelog
 - Remove more unprocessable tags in organization portrait for PDF generation.
   [msom]
 
+- Only use unrestricted for saving/deleting the PDF file.
+  [msom]
+
 0.7.1 (2015-04-08)
 ~~~~~~~~~~~~~~~~~~
 
