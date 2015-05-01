@@ -14,6 +14,9 @@ Changelog
 - Only use unrestricted for saving/deleting the PDF file.
   [msom]
 
+- Change row widths in PDF.
+  [msom]
+
 0.7.1 (2015-04-08)
 ~~~~~~~~~~~~~~~~~~
 

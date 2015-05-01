@@ -219,7 +219,7 @@ class OrganizationsReport(ReportZug):
                 MarkupParagraph(membership[2], self.pdf.style.normal),
             ])
 
-        table_columns = [4.3 * cm, 0.5 * cm, 11 * cm]
+        table_columns = [5 * cm, 0.5 * cm, 10.2 * cm]
         if table_data:
             has_content = True
             self.pdf.spacer()
