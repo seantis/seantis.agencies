@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.8 (unreleased)
+0.8 (2015-05-03)
 ~~~~~~~~~~~~~~~~
 
 - Add start of membership to PDF.
