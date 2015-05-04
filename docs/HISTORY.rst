@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-0.8.1 (unreleased)
+0.8.1 (2015-05-04)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Change row widths in PDF.
+  [msom]
 
 0.8 (2015-05-03)
 ~~~~~~~~~~~~~~~~
