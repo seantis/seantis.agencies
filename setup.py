@@ -8,7 +8,7 @@ name = 'seantis.agencies'
 description = (
     'A directory of people for (government) agencies.'
 )
-version = '0.8.2'
+version = '0.8.3'
 
 requirements = [
     'Plone>=4.3',
