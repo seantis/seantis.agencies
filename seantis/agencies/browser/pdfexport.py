@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import logging
 log = logging.getLogger('seantis.agencies')
 
@@ -32,7 +34,7 @@ from seantis.plonetools import tools, unrestricted
 PDF_EXPORT_FILENAME = u'exported_pdf.pdf'
 
 
-def fetch_organisation(organization, level=0, last_child=False):
+def fetch_organisation(organization, level=0):
     """ Returns the export data of an organisation with all its
     sub-organizations.
 
@@ -92,7 +94,7 @@ def fetch_organisation(organization, level=0, last_child=False):
 
     for idx, child in enumerate(children):
         data['children'].append(
-            fetch_organisation(child, level + 1, idx == len(children) - 1)
+            fetch_organisation(child, level + 1)
         )
 
     return data
@@ -179,7 +181,18 @@ class OrganizationsReport(ReportZug):
         for organization in self.data:
             self.populate_organization(organization)
 
-    def populate_organization(self, organization, level=0, last_child=False):
+    def populate_organization(self, organization, level=0,
+                              block_had_content=False):
+
+        break_page = (level > 0 and level < 4)
+        if break_page:
+            if not block_had_content:
+                break_page = False
+
+        if break_page:
+            self.pdf.pagebreak()
+        else:
+            self.pdf.spacer()
 
         has_content = False
         if level:
@@ -225,22 +238,15 @@ class OrganizationsReport(ReportZug):
             self.pdf.spacer()
             self.pdf.table(table_data, table_columns)
 
-        break_page = (
-            (level < 3 and has_content) or
-            (level == 3 and not len(organization['children'])) or
-            (level == 4 and last_child)
-        )
-        if break_page:
-            self.pdf.pagebreak()
-        else:
-            self.pdf.spacer()
-
         time.sleep(0)
 
         for idx, child in enumerate(organization['children']):
-            self.populate_organization(
-                child, level + 1, idx == len(organization['children']) - 1
+            child_has_content = self.populate_organization(
+                child, level + 1, has_content
             )
+            has_content = has_content or child_has_content
+
+        return has_content
 
 
 def create_and_save_pdf(data, filename, context, request, toc):

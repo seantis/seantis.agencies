@@ -5,7 +5,8 @@ Changelog
 0.8.2 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Optimise page breaks in PDF.
+  [msom]
 
 0.8.1 (2015-05-04)
 ~~~~~~~~~~~~~~~~~~
