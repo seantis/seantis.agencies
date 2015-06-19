@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-0.8.3 (unreleased)
-~~~~~~~~~~~~~~~~~~
+0.9 (unreleased)
+~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Add new export field.
+  [msom]
 
 0.8.2 (2015-05-11)
 ~~~~~~~~~~~~~~~~~~
@@ -41,7 +42,6 @@ Nothing yet.
 ~~~~~~~~~~~~~~~~~~
 
 - Reduce querying objects in nightly PDF export. Updates #12.
-
 
 0.7 (2015-03-31)
 ~~~~~~~~~~~~~~~~

@@ -71,6 +71,7 @@ class IOrganization(form.Schema):
         value_type=schema.Choice(
             vocabulary=SimpleVocabulary(terms=[
                 SimpleTerm(value=u'role', title=_('Role')),
+                SimpleTerm(value=u'title', title=_('Last Name First Name')),
                 SimpleTerm(value=u'start', title=_('Start of membership')),
                 SimpleTerm(value=u'lastname', title=_('Last Name')),
                 SimpleTerm(value=u'firstname', title=_('First Name')),
@@ -84,7 +85,7 @@ class IOrganization(form.Schema):
                 SimpleTerm(value=u'direct_number', title=_('Direct number')),
             ])
         ),
-        default=['role', 'lastname', 'firstname']
+        default=['role', 'title']
     )
 
 

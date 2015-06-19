@@ -37,4 +37,11 @@
         handler=".upgrades.upgrade_1004_to_1005"
     />
 
+    <genericsetup:upgradeStep
+        title="Add new export field"
+        source="1005" destination="1006"
+        profile="seantis.agencies:default"
+        handler=".upgrades.upgrade_1005_to_1006"
+    />
+
 </configure>

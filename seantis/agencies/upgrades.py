@@ -59,3 +59,24 @@ def upgrade_1003_to_1004(context):
 def upgrade_1004_to_1005(context):
     catalog = api.portal.get_tool(catalog_id)
     catalog.refreshCatalog(clear=1)
+
+
+def upgrade_1005_to_1006(context):
+    # Replace ['lastname', 'firstname'] with ['title'] in export fields
+    catalog = api.portal.get_tool('portal_catalog')
+    brains = catalog.unrestrictedSearchResults(
+        portal_type='seantis.agencies.organization'
+    )
+
+    for brain in brains:
+        organization = brain.getObject()
+        if hasattr(organization, 'export_fields'):
+            fields = organization.export_fields
+            if u'lastname' in fields and u'firstname' in fields:
+                index = fields.index(u'lastname')
+                if fields.index(u'firstname') == index + 1:
+                    print 'changed'
+                    fields.insert(index, u'title')
+                    fields.remove(u'lastname')
+                    fields.remove(u'firstname')
+                    organization.export_fields = fields

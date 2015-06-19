@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-26 14:17+0000\n"
+"POT-Creation-Date: 2015-06-19 16:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,12 @@ msgstr ""
 msgid "A directory of people for (government) agencies."
 msgstr ""
 
-#: ./types/__init__.py:80
+#: ./types/__init__.py:79
 #: ./types/member.xml
 msgid "Academic Title"
 msgstr ""
 
-#: ./types/__init__.py:82
+#: ./types/__init__.py:81
 #: ./types/member.xml
 msgid "Address"
 msgstr ""
@@ -43,16 +43,16 @@ msgstr ""
 msgid "Agency Membership"
 msgstr ""
 
-#: ./types/__init__.py:49
+#: ./types/__init__.py:47
 msgid "Description"
 msgstr ""
 
-#: ./types/__init__.py:86
+#: ./types/__init__.py:85
 #: ./types/member.xml
 msgid "Direct number"
 msgstr ""
 
-#: ./types/__init__.py:61
+#: ./types/__init__.py:59
 msgid "Display memberships alphabetically"
 msgstr ""
 
@@ -64,15 +64,15 @@ msgstr ""
 msgid "Fax"
 msgstr ""
 
-#: ./types/__init__.py:71
+#: ./types/__init__.py:68
 msgid "Fields to export"
 msgstr ""
 
-#: ./types/__init__.py:72
+#: ./types/__init__.py:69
 msgid "Fields to include in the PDF export"
 msgstr ""
 
-#: ./types/__init__.py:78
+#: ./types/__init__.py:77
 #: ./types/member.xml
 msgid "First Name"
 msgstr ""
@@ -97,9 +97,13 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: ./types/__init__.py:77
+#: ./types/__init__.py:76
 #: ./types/member.xml
 msgid "Last Name"
+msgstr ""
+
+#: ./types/__init__.py:74
+msgid "Last Name First Name"
 msgstr ""
 
 #: ./browser/templates/organization.pt:30
@@ -110,7 +114,7 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: ./types/__init__.py:81
+#: ./types/__init__.py:80
 #: ./types/member.xml
 msgid "Occupation"
 msgstr ""
@@ -123,26 +127,26 @@ msgstr ""
 msgid "Person"
 msgstr ""
 
-#: ./types/__init__.py:85
+#: ./types/__init__.py:84
 #: ./types/member.xml
 msgid "Phone"
 msgstr ""
 
-#: ./types/__init__.py:84
+#: ./types/__init__.py:83
 #: ./types/member.xml
 msgid "Political Party"
 msgstr ""
 
 #: ./browser/templates/organization.pt:12
-#: ./types/__init__.py:56
+#: ./types/__init__.py:54
 msgid "Portrait"
 msgstr ""
 
-#: ./types/__init__.py:130
+#: ./types/__init__.py:129
 msgid "Prefix"
 msgstr ""
 
-#: ./browser/pdfexport.py:75
+#: ./browser/pdfexport.py:167
 msgid "Print date: ${date}"
 msgstr ""
 
@@ -154,7 +158,7 @@ msgstr ""
 msgid "Remarks"
 msgstr ""
 
-#: ./types/__init__.py:76
+#: ./types/__init__.py:73
 msgid "Role"
 msgstr ""
 
@@ -167,7 +171,7 @@ msgid "Salutation"
 msgstr ""
 
 #: ./browser/templates/membership.pt:27
-#: ./types/__init__.py:125
+#: ./types/__init__.py:75
 msgid "Start of membership"
 msgstr ""
 
@@ -175,11 +179,11 @@ msgstr ""
 msgid "Subsidiary organizations"
 msgstr ""
 
-#: ./types/__init__.py:62
+#: ./types/__init__.py:60
 msgid "Tick this box to sort memberships alphabetically by name rather than by their position in the folder."
 msgstr ""
 
-#: ./types/__init__.py:44
+#: ./types/__init__.py:42
 msgid "Title"
 msgstr ""
 
@@ -195,7 +199,7 @@ msgstr ""
 msgid "XLS file"
 msgstr ""
 
-#: ./types/__init__.py:79
+#: ./types/__init__.py:78
 #: ./types/member.xml
 msgid "Year"
 msgstr ""

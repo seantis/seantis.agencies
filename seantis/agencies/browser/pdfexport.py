@@ -75,7 +75,7 @@ def fetch_organisation(organization, level=0):
                 if getattr(person, field, None):
                     text_fields.append(getattr(person, field, ''))
                 if getattr(membership, field, None):
-                    if field == 'role':
+                    if field == 'role' or field == 'title':
                         continue
                     text_fields.append(getattr(membership, field, ''))
             text = ', '.join(text_fields)
