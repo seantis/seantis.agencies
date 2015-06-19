@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-0.8.3 (unreleased)
-~~~~~~~~~~~~~~~~~~
+0.9 (unreleased)
+~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Add postfix to membership.
+  [msom]
 
 0.8.2 (2015-05-11)
 ~~~~~~~~~~~~~~~~~~

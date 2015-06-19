@@ -72,6 +72,7 @@ class IOrganization(form.Schema):
             vocabulary=SimpleVocabulary(terms=[
                 SimpleTerm(value=u'role', title=_('Role')),
                 SimpleTerm(value=u'start', title=_('Start of membership')),
+                SimpleTerm(value=u'postfix', title=_('Postfix')),
                 SimpleTerm(value=u'lastname', title=_('Last Name')),
                 SimpleTerm(value=u'firstname', title=_('First Name')),
                 SimpleTerm(value=u'year', title=_('Year')),
@@ -126,6 +127,11 @@ class IMembership(IPeopleMembership):
 
     prefix = schema.TextLine(
         title=_(u"Prefix"),
+        required=False
+    )
+
+    postfix = schema.TextLine(
+        title=_(u"Postfix"),
         required=False
     )
 

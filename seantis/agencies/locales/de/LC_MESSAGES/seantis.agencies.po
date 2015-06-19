@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: seantis.agencies\n"
-"POT-Creation-Date: 2015-03-26 14:17+0000\n"
+"POT-Creation-Date: 2015-06-19 17:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Seantis <info@seantis.ch>\n"
 "Language-Team: Seantis <info@seantis.ch>\n"
@@ -40,7 +40,7 @@ msgstr "Mitglied einer Organisation"
 msgid "Agency Membership"
 msgstr "Mitgliedschaft in einer Organisation"
 
-#: ./types/__init__.py:49
+#: ./types/__init__.py:47
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -49,7 +49,7 @@ msgstr "Beschreibung"
 msgid "Direct number"
 msgstr "Direktnummer"
 
-#: ./types/__init__.py:61
+#: ./types/__init__.py:59
 msgid "Display memberships alphabetically"
 msgstr "Mitgliedschaften alphabetisch anzeigen"
 
@@ -61,11 +61,11 @@ msgstr "E-Mail"
 msgid "Fax"
 msgstr "Telefax"
 
-#: ./types/__init__.py:71
+#: ./types/__init__.py:68
 msgid "Fields to export"
 msgstr "Exportierte Felder"
 
-#: ./types/__init__.py:72
+#: ./types/__init__.py:69
 msgid "Fields to include in the PDF export"
 msgstr "Felder, welche im PDF-Export für die Organisation exportiert werden sollen."
 
@@ -131,15 +131,19 @@ msgid "Political Party"
 msgstr "Politische Partei"
 
 #: ./browser/templates/organization.pt:12
-#: ./types/__init__.py:56
+#: ./types/__init__.py:54
 msgid "Portrait"
 msgstr "Porträt"
+
+#: ./types/__init__.py:75
+msgid "Postfix"
+msgstr "Zusatz-Organisation"
 
 #: ./types/__init__.py:130
 msgid "Prefix"
 msgstr "Präfix"
 
-#: ./browser/pdfexport.py:75
+#: ./browser/pdfexport.py:167
 msgid "Print date: ${date}"
 msgstr "Druckdatum: ${date}"
 
@@ -151,7 +155,7 @@ msgstr "Privat"
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: ./types/__init__.py:76
+#: ./types/__init__.py:73
 msgid "Role"
 msgstr "Rolle"
 
@@ -164,7 +168,7 @@ msgid "Salutation"
 msgstr "Anrede"
 
 #: ./browser/templates/membership.pt:27
-#: ./types/__init__.py:125
+#: ./types/__init__.py:74
 msgid "Start of membership"
 msgstr "Eintritt"
 
@@ -172,11 +176,11 @@ msgstr "Eintritt"
 msgid "Subsidiary organizations"
 msgstr "Unterorganisationen"
 
-#: ./types/__init__.py:62
+#: ./types/__init__.py:60
 msgid "Tick this box to sort memberships alphabetically by name rather than by their position in the folder."
 msgstr "Ordne die Mitgliedschaft alphabetisch nach Name anstatt nach der Reihenfolge im Ordner."
 
-#: ./types/__init__.py:44
+#: ./types/__init__.py:42
 msgid "Title"
 msgstr "Titel"
 
@@ -196,4 +200,3 @@ msgstr "XLS Datei"
 #: ./types/member.xml
 msgid "Year"
 msgstr "Jahrgang"
-
