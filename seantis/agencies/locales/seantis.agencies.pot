@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-19 16:33+0000\n"
+"POT-Creation-Date: 2015-06-23 10:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,12 @@ msgstr ""
 msgid "A directory of people for (government) agencies."
 msgstr ""
 
-#: ./types/__init__.py:79
+#: ./types/__init__.py:80
 #: ./types/member.xml
 msgid "Academic Title"
 msgstr ""
 
-#: ./types/__init__.py:81
+#: ./types/__init__.py:82
 #: ./types/member.xml
 msgid "Address"
 msgstr ""
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: ./types/__init__.py:85
+#: ./types/__init__.py:86
 #: ./types/member.xml
 msgid "Direct number"
 msgstr ""
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Fields to include in the PDF export"
 msgstr ""
 
-#: ./types/__init__.py:77
+#: ./types/__init__.py:78
 #: ./types/member.xml
 msgid "First Name"
 msgstr ""
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: ./types/__init__.py:76
+#: ./types/__init__.py:77
 #: ./types/member.xml
 msgid "Last Name"
 msgstr ""
@@ -114,7 +114,7 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: ./types/__init__.py:80
+#: ./types/__init__.py:81
 #: ./types/member.xml
 msgid "Occupation"
 msgstr ""
@@ -127,12 +127,12 @@ msgstr ""
 msgid "Person"
 msgstr ""
 
-#: ./types/__init__.py:84
+#: ./types/__init__.py:85
 #: ./types/member.xml
 msgid "Phone"
 msgstr ""
 
-#: ./types/__init__.py:83
+#: ./types/__init__.py:84
 #: ./types/member.xml
 msgid "Political Party"
 msgstr ""
@@ -142,7 +142,12 @@ msgstr ""
 msgid "Portrait"
 msgstr ""
 
-#: ./types/__init__.py:129
+#: ./browser/templates/membership.pt:31
+#: ./types/__init__.py:76
+msgid "Postfix"
+msgstr ""
+
+#: ./types/__init__.py:130
 msgid "Prefix"
 msgstr ""
 
@@ -199,7 +204,7 @@ msgstr ""
 msgid "XLS file"
 msgstr ""
 
-#: ./types/__init__.py:78
+#: ./types/__init__.py:79
 #: ./types/member.xml
 msgid "Year"
 msgstr ""

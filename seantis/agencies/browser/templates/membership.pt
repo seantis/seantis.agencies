@@ -27,6 +27,10 @@
                 <label i18n:translate="">Start of membership</label>
                 <div tal:content="context/start" />
             </div>
+            <div tal:condition="context/postfix" class="field seantis-agencies-membership-postfix">
+                <label i18n:translate="">Postfix</label>
+                <div tal:content="context/postfix" />
+            </div>
 
         </metal:block>
     </metal:block>

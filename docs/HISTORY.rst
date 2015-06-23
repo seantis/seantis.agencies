@@ -8,6 +8,9 @@ Changelog
 - Add new export field.
   [msom]
 
+- Add postfix to membership.
+  [msom]
+
 0.8.2 (2015-05-11)
 ~~~~~~~~~~~~~~~~~~
 
