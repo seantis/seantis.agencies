@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.9 (unreleased)
+0.9 (2015-06-23)
 ~~~~~~~~~~~~~~~~
 
 - Add new export field.
