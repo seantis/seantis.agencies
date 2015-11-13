@@ -2,7 +2,7 @@ Seantis Agencies
 ================
 
 .. image:: https://img.shields.io/pypi/v/seantis.agencies.svg
-  :target: https://crate.io/packages/seantis.agencies
+  :target: https://pypi.python.org/pypi/seantis.agencies
 
 .. image:: https://travis-ci.org/seantis/seantis.agencies.png?branch=master
   :target: https://travis-ci.org/seantis/seantis.agencies
