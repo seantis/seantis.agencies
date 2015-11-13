@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.9.1 (unreleased)
+0.9.1 (2015-11-13)
 ~~~~~~~~~~~~~~~~~~
 
 - Fix CSRF issue on PDF generation.
