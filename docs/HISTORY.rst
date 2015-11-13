@@ -5,8 +5,8 @@ Changelog
 0.9.1 (unreleased)
 ~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
-
+- Fix CSRF issue on PDF generation.
+  [msom]
 
 0.9 (2015-06-23)
 ~~~~~~~~~~~~~~~~

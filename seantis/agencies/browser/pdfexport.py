@@ -14,6 +14,7 @@ from kantonzugpdf import ReportZug
 from kantonzugpdf.report import PDF
 from pdfdocument.document import MarkupParagraph
 from plone import api
+from plone.protect import createToken
 from plone.synchronize import synchronized
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from reportlab.lib.units import cm
@@ -251,6 +252,7 @@ def create_and_save_pdf(data, filename, context, request, toc):
     filehandle = report.build(context, request)
 
     with unrestricted.run_as('Manager'):
+        request.set('_authenticator', createToken())
         if filename in context:
             context.manage_delObjects([filename])
 

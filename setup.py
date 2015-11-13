@@ -14,10 +14,11 @@ requirements = [
     'Plone>=4.3',
     'plone.api',
     'plone.app.dexterity [grok]',
+    'plone.protect',
     'five.grok',
     'xlrd',
     'xlwt',
-    'seantis.plonetools',
+    'seantis.plonetools>=0.18',
     'seantis.people>=0.24',
     'kantonzugpdf',
     'svglib'
