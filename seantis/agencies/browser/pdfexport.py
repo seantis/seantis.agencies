@@ -3,32 +3,24 @@
 import logging
 log = logging.getLogger('seantis.agencies')
 
-import os
-import codecs
 import re
-import tempfile
 import time
 import transaction
 
 from datetime import datetime, date, timedelta
-from io import BytesIO
-from pdfdocument.document import MarkupParagraph
-from reportlab.lib.units import cm
-from threading import Lock
-
 from five import grok
-from plone import api
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from plone.synchronize import synchronized
-from zExceptions import NotFound
-from zope.interface import Interface
-
+from io import BytesIO
 from kantonzugpdf import ReportZug
 from kantonzugpdf.report import PDF
-
+from pdfdocument.document import MarkupParagraph
+from plone import api
+from plone.synchronize import synchronized
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from reportlab.lib.units import cm
 from seantis.agencies import _
 from seantis.agencies.types import IOrganization
 from seantis.plonetools import tools, unrestricted
+from threading import Lock
 
 
 PDF_EXPORT_FILENAME = u'exported_pdf.pdf'
@@ -86,7 +78,6 @@ def fetch_organisation(organization, level=0):
         sortkey = lambda m: tools.unicode_collate_sortkey()(m[3])
         memberships = sorted(memberships, key=sortkey)
 
-    table_data = []
     for membership in memberships:
         data['memberships'].append(membership[:3])
 
