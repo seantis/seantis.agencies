@@ -1,6 +1,8 @@
 Seantis Agencies
 ================
 
+A directory of people for (government) agencies.
+
 .. image:: https://img.shields.io/pypi/v/seantis.agencies.svg
   :target: https://pypi.python.org/pypi/seantis.agencies
 
@@ -10,7 +12,6 @@ Seantis Agencies
 .. image:: https://coveralls.io/repos/seantis/seantis.agencies/badge.png?branch=master
   :target: https://coveralls.io/r/seantis/seantis.agencies?branch=master
 
-A directory of people for (government) agencies.
 
 Installation
 ------------
