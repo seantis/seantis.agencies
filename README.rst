@@ -1,6 +1,15 @@
 Seantis Agencies
 ================
 
+.. image:: https://img.shields.io/pypi/v/seantis.agencies.svg
+  :target: https://crate.io/packages/seantis.agencies
+
+.. image:: https://travis-ci.org/seantis/seantis.agencies.png?branch=master
+  :target: https://travis-ci.org/seantis/seantis.agencies
+
+.. image:: https://coveralls.io/repos/seantis/seantis.agencies/badge.png?branch=master
+  :target: https://coveralls.io/r/seantis/seantis.agencies?branch=master
+
 A directory of people for (government) agencies.
 
 Installation
@@ -56,27 +65,6 @@ with memberships to a PDF located at the root, 2) a PDF for each organization.
 
 Use *force* (*/pdfexport-agencies?force=1*) to bypass the scheduler and to
 force the creation of the PDFs.
-
-
-Build Status
-------------
-
-.. image:: https://travis-ci.org/seantis/seantis.agencies.png?branch=master
-  :target: https://travis-ci.org/seantis/seantis.agencies
-  :alt: Build Status
-
-Coverage
---------
-
-.. image:: https://coveralls.io/repos/seantis/seantis.agencies/badge.png?branch=master
-  :target: https://coveralls.io/r/seantis/seantis.agencies?branch=master
-  :alt: Project Coverage
-
-Latests PyPI Release
---------------------
-.. image:: https://pypip.in/v/seantis.agencies/badge.png
-  :target: https://crate.io/packages/seantis.agencies
-  :alt: Latest PyPI Release
 
 License
 -------
