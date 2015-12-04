@@ -8,6 +8,9 @@ Changelog
 - Add actions for PDFs #9.
   [msom]
 
+- Replace internal with external links in the PDFs #20.
+  [msom]
+
 0.9.1 (2015-11-13)
 ~~~~~~~~~~~~~~~~~~
 

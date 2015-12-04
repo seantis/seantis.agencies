@@ -27,6 +27,29 @@ from threading import Lock
 PDF_EXPORT_FILENAME = u'exported_pdf.pdf'
 
 
+def get_portrait(organization):
+    """ Returns the portrait of the organization in a usable form for the
+    PDF generation. """
+
+    portrait = ''
+
+    if organization.portrait and organization.portrait.strip():
+        portrait = organization.portal_transforms.convertTo(
+            'text/x-html-safe',
+            organization.portrait,
+            context=organization,
+            encoding='utf8'
+        ).getData()
+
+        # remove target/class/title attribute from link tags
+        portrait = re.sub(
+            r"(class|title|target)=[\"'][^\"^']*[\"']", "",
+            portrait
+        )
+
+    return portrait
+
+
 def fetch_organisation(organization, level=0):
     """ Returns the export data of an organisation with all its
     sub-organizations.
@@ -34,22 +57,12 @@ def fetch_organisation(organization, level=0):
     """
 
     data = {
-        'title': '',
-        'portrait': '',
+        'title': organization.title if level else '',
+        'portrait': get_portrait(organization),
         'memberships': [],
         'children': [],
         'context': organization
     }
-
-    if level:
-        data['title'] = organization.title
-
-    if organization.portrait and organization.portrait.strip():
-        # remove target/class/title attribute from link tags
-        data['portrait'] = re.sub(
-            r"(class|title|target)=[\"'][^\"^']*[\"']", "",
-            organization.portrait
-        )
 
     memberships = []
     for brain in organization.memberships():
