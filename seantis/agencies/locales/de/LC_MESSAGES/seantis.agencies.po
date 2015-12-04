@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: seantis.agencies\n"
-"POT-Creation-Date: 2015-06-23 10:14+0000\n"
+"POT-Creation-Date: 2015-12-04 09:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Seantis <info@seantis.ch>\n"
 "Language-Team: Seantis <info@seantis.ch>\n"
@@ -148,7 +148,7 @@ msgstr "Zusatz-Organisation"
 msgid "Prefix"
 msgstr "Präfix"
 
-#: ./browser/pdfexport.py:167
+#: ./browser/pdfexport.py:159
 msgid "Print date: ${date}"
 msgstr "Druckdatum: ${date}"
 

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-23 10:14+0000\n"
+"POT-Creation-Date: 2015-12-04 09:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: seantis.dir.eventsportlet\n"
+"Domain: seantis.agencies\n"
 
 #: ./profiles.zcml
 msgid "A directory of people for (government) agencies."
@@ -151,7 +151,7 @@ msgstr ""
 msgid "Prefix"
 msgstr ""
 
-#: ./browser/pdfexport.py:167
+#: ./browser/pdfexport.py:159
 msgid "Print date: ${date}"
 msgstr ""
 

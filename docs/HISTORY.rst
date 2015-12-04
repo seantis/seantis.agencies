@@ -2,10 +2,11 @@
 Changelog
 ---------
 
-0.9.2 (unreleased)
-~~~~~~~~~~~~~~~~~~
+0.10.0 (unreleased)
+~~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Add actions for PDFs #9.
+  [msom]
 
 0.9.1 (2015-11-13)
 ~~~~~~~~~~~~~~~~~~

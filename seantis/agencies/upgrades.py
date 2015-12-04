@@ -80,3 +80,10 @@ def upgrade_1005_to_1006(context):
                     fields.remove(u'lastname')
                     fields.remove(u'firstname')
                     organization.export_fields = fields
+
+
+def upgrade_1006_to_1007(context):
+    upgrade_portal_type(
+        'seantis.agencies.organization', 'seantis.agencies', 'default'
+    )
+    run_import_step_from_profile('actions', 'seantis.agencies', 'default')

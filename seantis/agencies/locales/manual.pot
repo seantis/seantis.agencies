@@ -15,7 +15,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: seantis.dir.eventsportlet\n"
+"Domain: seantis.agencies\n"
 
 #: ./profiles.zcml
 msgid "A directory of people for (government) agencies."
