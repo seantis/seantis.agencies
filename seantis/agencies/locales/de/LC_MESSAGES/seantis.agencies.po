@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: seantis.agencies\n"
-"POT-Creation-Date: 2015-12-04 09:19+0000\n"
+"POT-Creation-Date: 2015-12-07 09:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Seantis <info@seantis.ch>\n"
 "Language-Team: Seantis <info@seantis.ch>\n"
@@ -18,12 +18,12 @@ msgstr ""
 msgid "A directory of people for (government) agencies."
 msgstr "Ein Personenverzeichnis für Behörden und Organisationen."
 
-#: ./types/__init__.py:80
+#: ./types/__init__.py:81
 #: ./types/member.xml
 msgid "Academic Title"
 msgstr "Akademischer Titel"
 
-#: ./types/__init__.py:82
+#: ./types/__init__.py:83
 #: ./types/member.xml
 msgid "Address"
 msgstr "Adresse"
@@ -40,16 +40,16 @@ msgstr "Mitglied einer Organisation"
 msgid "Agency Membership"
 msgstr "Mitgliedschaft in einer Organisation"
 
-#: ./types/__init__.py:47
+#: ./types/__init__.py:48
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ./types/__init__.py:86
+#: ./types/__init__.py:87
 #: ./types/member.xml
 msgid "Direct number"
 msgstr "Direktnummer"
 
-#: ./types/__init__.py:59
+#: ./types/__init__.py:60
 msgid "Display memberships alphabetically"
 msgstr "Mitgliedschaften alphabetisch anzeigen"
 
@@ -61,15 +61,15 @@ msgstr "E-Mail"
 msgid "Fax"
 msgstr "Telefax"
 
-#: ./types/__init__.py:68
+#: ./types/__init__.py:69
 msgid "Fields to export"
 msgstr "Exportierte Felder"
 
-#: ./types/__init__.py:69
+#: ./types/__init__.py:70
 msgid "Fields to include in the PDF export"
 msgstr "Felder, welche im PDF-Export für die Organisation exportiert werden sollen."
 
-#: ./types/__init__.py:78
+#: ./types/__init__.py:79
 #: ./types/member.xml
 msgid "First Name"
 msgstr "Vorname"
@@ -94,12 +94,12 @@ msgstr "Importiert. Bitte re-indexieren."
 msgid "Keywords"
 msgstr "Stichworte"
 
-#: ./types/__init__.py:77
+#: ./types/__init__.py:78
 #: ./types/member.xml
 msgid "Last Name"
 msgstr "Name"
 
-#: ./types/__init__.py:74
+#: ./types/__init__.py:75
 msgid "Last Name First Name"
 msgstr "Name Vorname"
 
@@ -111,10 +111,14 @@ msgstr "Mitgliedschaften"
 msgid "Note"
 msgstr "Notiz"
 
-#: ./types/__init__.py:81
+#: ./types/__init__.py:82
 #: ./types/member.xml
 msgid "Occupation"
 msgstr "Beruf"
+
+#: ./types/__init__.py:94
+msgid "Organigram"
+msgstr "Ogranigramm"
 
 #: ./types/member.xml
 msgid "Organizations"
@@ -124,31 +128,31 @@ msgstr "Organisationen"
 msgid "Person"
 msgstr "Person"
 
-#: ./types/__init__.py:85
+#: ./types/__init__.py:86
 #: ./types/member.xml
 msgid "Phone"
 msgstr "Telefon"
 
-#: ./types/__init__.py:84
+#: ./types/__init__.py:85
 #: ./types/member.xml
 msgid "Political Party"
 msgstr "Politische Partei"
 
 #: ./browser/templates/organization.pt:12
-#: ./types/__init__.py:54
+#: ./types/__init__.py:55
 msgid "Portrait"
 msgstr "Porträt"
 
 #: ./browser/templates/membership.pt:31
-#: ./types/__init__.py:76
+#: ./types/__init__.py:77
 msgid "Postfix"
 msgstr "Zusatz-Organisation"
 
-#: ./types/__init__.py:130
+#: ./types/__init__.py:136
 msgid "Prefix"
 msgstr "Präfix"
 
-#: ./browser/pdfexport.py:159
+#: ./browser/pdfexport.py:185
 msgid "Print date: ${date}"
 msgstr "Druckdatum: ${date}"
 
@@ -160,7 +164,7 @@ msgstr "Privat"
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: ./types/__init__.py:73
+#: ./types/__init__.py:74
 msgid "Role"
 msgstr "Rolle"
 
@@ -173,7 +177,7 @@ msgid "Salutation"
 msgstr "Anrede"
 
 #: ./browser/templates/membership.pt:27
-#: ./types/__init__.py:75
+#: ./types/__init__.py:76
 msgid "Start of membership"
 msgstr "Eintritt"
 
@@ -181,11 +185,11 @@ msgstr "Eintritt"
 msgid "Subsidiary organizations"
 msgstr "Unterorganisationen"
 
-#: ./types/__init__.py:60
+#: ./types/__init__.py:61
 msgid "Tick this box to sort memberships alphabetically by name rather than by their position in the folder."
 msgstr "Ordne die Mitgliedschaft alphabetisch nach Name anstatt nach der Reihenfolge im Ordner."
 
-#: ./types/__init__.py:42
+#: ./types/__init__.py:43
 msgid "Title"
 msgstr "Titel"
 
@@ -201,8 +205,7 @@ msgstr "Webseite"
 msgid "XLS file"
 msgstr "XLS Datei"
 
-#: ./types/__init__.py:79
+#: ./types/__init__.py:80
 #: ./types/member.xml
 msgid "Year"
 msgstr "Jahrgang"
-

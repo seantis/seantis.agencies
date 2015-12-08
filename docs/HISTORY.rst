@@ -11,6 +11,9 @@ Changelog
 - Replace internal with external links in the PDFs #20.
   [msom]
 
+- Add organigrams to organizations.
+  [msom]
+
 0.9.1 (2015-11-13)
 ~~~~~~~~~~~~~~~~~~
 

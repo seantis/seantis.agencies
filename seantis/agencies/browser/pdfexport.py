@@ -3,7 +3,6 @@
 import logging
 log = logging.getLogger('seantis.agencies')
 
-import re
 import time
 import transaction
 
@@ -27,42 +26,26 @@ from threading import Lock
 PDF_EXPORT_FILENAME = u'exported_pdf.pdf'
 
 
-def get_portrait(organization):
-    """ Returns the portrait of the organization in a usable form for the
-    PDF generation. """
-
-    portrait = ''
-
-    if organization.portrait and organization.portrait.strip():
-        portrait = organization.portal_transforms.convertTo(
-            'text/x-html-safe',
-            organization.portrait,
-            context=organization,
-            encoding='utf8'
-        ).getData()
-
-        # remove target/class/title attribute from link tags
-        portrait = re.sub(
-            r"(class|title|target)=[\"'][^\"^']*[\"']", "",
-            portrait
-        )
-
-    return portrait
-
-
 def fetch_organisation(organization, level=0):
     """ Returns the export data of an organisation with all its
     sub-organizations.
 
     """
-
     data = {
         'title': organization.title if level else '',
-        'portrait': get_portrait(organization),
+        'portrait': '',
         'memberships': [],
         'children': [],
         'context': organization
     }
+
+    if organization.portrait:
+        data['portrait'] = organization.portal_transforms.convertTo(
+            'text/x-html-safe',
+            organization.portrait,
+            context=organization,
+            encoding='utf8'
+        ).getData()
 
     memberships = []
     for brain in organization.memberships():
@@ -223,7 +206,7 @@ class OrganizationsReport(ReportZug):
             has_content = True
             self.pdf.spacer()
             try:
-                self.pdf.p_markup(organization['portrait'])
+                self.pdf.styled_paragraph(organization['portrait'])
             except ValueError:
                 # the portrait might have some unprocessable html code
                 self.pdf.p(organization['portrait'])
@@ -242,6 +225,17 @@ class OrganizationsReport(ReportZug):
             has_content = True
             self.pdf.spacer()
             self.pdf.table(table_data, table_columns)
+
+        image = organization['context'].organigram
+        if image:
+            self.pdf.spacer()
+            self.pdf.image(
+                '{}/@@images/organigram'.format(
+                    organization['context'].absolute_url(),
+                ),
+                1.0 * image._width / image._height
+            )
+            self.pdf.spacer()
 
         time.sleep(0)
 

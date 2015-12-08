@@ -14,6 +14,11 @@
                 </div>
             </tal:block>
 
+            <div tal:condition="context/organigram" class="seantis-agencies-organigram">
+                <h3 i18n:translate="">Organigram</h3>
+                <img tal:replace="structure context/@@images/organigram" />
+            </div>
+
             <tal:block tal:define="suborganizations view/suborganizations">
                 <div tal:condition="suborganizations" class="seantis-agencies-suborganizations">
                     <h2 i18n:translate="">Subsidiary organizations</h2>
