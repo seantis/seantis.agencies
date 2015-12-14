@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.10.1 (unreleased)
+0.10.1 (2015-12-14)
 ~~~~~~~~~~~~~~~~~~~
 
 - Fix translation.
