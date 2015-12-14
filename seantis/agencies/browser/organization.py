@@ -1,8 +1,5 @@
 from five import grok
 
-from plone.folder.interfaces import IExplicitOrdering
-from plone.uuid.interfaces import IUUID
-from zope.component import queryUtility
 from zope.event import notify
 from zope.interface import implements
 

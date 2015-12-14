@@ -12,6 +12,7 @@
     <element value="seantis.agencies.membership" />
     <element value="seantis.agencies.organization" />
     <element value="File" />
+    <element value="Image" />
   </property>
 
   <!-- schema interface -->

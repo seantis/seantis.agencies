@@ -1,18 +1,15 @@
 import logging
 log = logging.getLogger('seantis.agencies')
 
-from datetime import date
-from five import grok
-
 from zope import schema
-from zope.interface import Interface, Invalid
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from plone import api
+from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.dexterity.content import Container
 from plone.directives import form
-from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
+from plone.namedfile.field import NamedImage
 
 from collective.dexteritytextindexer import searchable
 
@@ -87,6 +84,11 @@ class IOrganization(form.Schema):
             ])
         ),
         default=['role', 'title']
+    )
+
+    organigram = NamedImage(
+        title=_(u'Organigram'),
+        required=False
     )
 
 
