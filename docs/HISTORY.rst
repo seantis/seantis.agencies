@@ -5,7 +5,8 @@ Changelog
 0.10.1 (unreleased)
 ~~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Fix translation.
+  [msom]
 
 0.10 (2015-12-14)
 ~~~~~~~~~~~~~~~~~

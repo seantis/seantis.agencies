@@ -118,7 +118,7 @@ msgstr "Beruf"
 
 #: ./types/__init__.py:94
 msgid "Organigram"
-msgstr "Ogranigramm"
+msgstr "Organigramm"
 
 #: ./types/member.xml
 msgid "Organizations"
