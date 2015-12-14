@@ -212,17 +212,6 @@ class OrganizationsReport(ReportZug):
                 self.pdf.p(organization['portrait'])
                 log.warn('%s contains invalid markup' % organization['title'])
 
-        image = organization['context'].organigram
-        if image:
-            self.pdf.spacer()
-            self.pdf.image(
-                '{}/@@images/organigram'.format(
-                    organization['context'].absolute_url(),
-                ),
-                1.0 * image._width / image._height
-            )
-            self.pdf.spacer()
-
         table_data = []
         for membership in organization['memberships']:
             table_data.append([
@@ -236,6 +225,17 @@ class OrganizationsReport(ReportZug):
             has_content = True
             self.pdf.spacer()
             self.pdf.table(table_data, table_columns)
+
+        image = organization['context'].organigram
+        if image:
+            self.pdf.spacer()
+            self.pdf.image(
+                '{}/@@images/organigram'.format(
+                    organization['context'].absolute_url(),
+                ),
+                1.0 * image._width / image._height
+            )
+            self.pdf.spacer()
 
         time.sleep(0)
 

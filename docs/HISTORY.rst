@@ -8,6 +8,9 @@ Changelog
 - Fix translation.
   [msom]
 
+- Move organigram in PDF below members.
+  [msom]
+
 0.10 (2015-12-14)
 ~~~~~~~~~~~~~~~~~
 
