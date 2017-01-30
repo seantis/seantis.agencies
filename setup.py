@@ -56,7 +56,7 @@ setup(
     ],
     keywords='seantis.agencies plone',
     author='Seantis GmbH',
-    author_email='Seantis GmbH',
+    author_email='info@seantis.ch',
     url='https://github.com/seantis/seantis.agencies',
     license='GPLv2',
     packages=find_packages(exclude=['ez_setup']),
