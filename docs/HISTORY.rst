@@ -5,7 +5,8 @@ Changelog
 0.10.2 (unreleased)
 ~~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Update dependencies.
+  [msom]
 
 0.10.1 (2015-12-14)
 ~~~~~~~~~~~~~~~~~~~

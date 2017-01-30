@@ -20,8 +20,7 @@ requirements = [
     'xlwt',
     'seantis.plonetools>=0.18',
     'seantis.people>=0.24',
-    'kantonzugpdf>=0.3',
-    'svglib'
+    'kantonzugpdf>=0.3.1',
 ]
 
 
