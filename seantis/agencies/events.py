@@ -1,5 +1,3 @@
-from zope.event import notify
-from zope.lifecycleevent import ObjectModifiedEvent
 from plone import api
 
 from seantis.agencies.types import IMembership

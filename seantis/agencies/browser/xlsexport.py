@@ -65,7 +65,6 @@ class ExportView(grok.View):
     def write_organization(self, sheet, organization, uids):
         uid = self.get_simple_uid(organization.UID(), uids)
         children = [o.getObject() for o in organization.suborganizations()]
-        memberships = [m.getObject() for m in organization.memberships()]
 
         index = len(sheet.rows)
         sheet.row(index).write(0, str(uid))
@@ -73,7 +72,7 @@ class ExportView(grok.View):
             [str(self.get_simple_uid(child.UID(), uids)) for child in children]
         ))
         for col, field in enumerate(FIELDS_ORGANIZATION):
-            sheet.row(index).write(2+col, getattr(organization, field))
+            sheet.row(index).write(2 + col, getattr(organization, field))
 
         for child in children:
             self.write_organization(sheet, child, uids)
@@ -90,7 +89,7 @@ class ExportView(grok.View):
             person = brain.getObject()
 
             for col, field in enumerate(FIELDS_REGISTER):
-                sheet.row(index+1).write(col, getattr(person, field))
+                sheet.row(index + 1).write(col, getattr(person, field))
 
             memberships = [
                 u'(%s)(%s)(%s)(%s)(%s)' % (
@@ -101,7 +100,7 @@ class ExportView(grok.View):
                 for sublist in person.memberships.values() for item in sublist
             ]
 
-            sheet.row(index+1).write(
+            sheet.row(index + 1).write(
                 len(FIELDS_REGISTER), u'//'.join(memberships)
             )
 

@@ -1,6 +1,4 @@
 import logging
-log = logging.getLogger('seantis.agencies')
-
 import re
 import transaction
 import xlrd
@@ -9,9 +7,15 @@ from five import grok
 from plone.dexterity.utils import createContentInContainer
 from plone.directives import form
 from plone.namedfile.field import NamedFile
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from seantis.agencies import _
+from seantis.agencies.browser.xlsexport import (
+    TITLES_REGISTER, FIELDS_REGISTER,
+    TITLES_ORGANIZATION, FIELDS_ORGANIZATION
+)
+from seantis.plonetools import unrestricted
 from StringIO import StringIO
 from z3c.form import field
 from z3c.form.button import buttonAndHandler
@@ -21,12 +25,8 @@ from zope.app.intid.interfaces import IIntIds
 from zope.component import getUtility
 from zope.interface import Invalid
 
-from seantis.agencies import _
-from seantis.agencies.browser.xlsexport import (
-    TITLES_REGISTER, FIELDS_REGISTER,
-    TITLES_ORGANIZATION, FIELDS_ORGANIZATION
-)
-from seantis.plonetools import unrestricted
+
+log = logging.getLogger('seantis.agencies')
 
 
 KNOWN_PUBLISH_ACTIONS = (
@@ -98,8 +98,8 @@ class ImportView(form.Form):
                 assert values[0] not in organizations
 
                 organization = {}
-                for index, field in enumerate(FIELDS_ORGANIZATION):
-                    organization[field] = values[2+index]
+                for index, field_ in enumerate(FIELDS_ORGANIZATION):
+                    organization[field_] = values[2 + index]
 
                 children = [id.strip() for id in values[1].split(',') if id]
                 organization['_children'] = children
@@ -131,8 +131,8 @@ class ImportView(form.Form):
                 assert len(values) == len(TITLES_REGISTER)
 
                 member = {}
-                for index, field in enumerate(FIELDS_REGISTER):
-                    member[field] = values[index]
+                for index, field_ in enumerate(FIELDS_REGISTER):
+                    member[field_] = values[index]
 
                 pattern = re.compile(
                     r'\((.*)\)\((.*)\)\((.*)\)\((.*)\)\((.*)\)'
@@ -145,7 +145,7 @@ class ImportView(form.Form):
                 member['_memberships'] = memberships
 
                 members.append(member)
-            except Exception as e:
+            except Exception:
                 errors.append(_(u'Invalid row ${row} in sheet ${sheet}',
                                 mapping={u'row': row, u'sheet': sheet.name}))
 
@@ -181,7 +181,7 @@ class ImportView(form.Form):
         count += 1
         log.info(
             'added organization %s (%i/%i)' % (
-                organization['title'], count, len(organizations)-1
+                organization['title'], count, len(organizations) - 1
             )
         )
 
@@ -252,7 +252,7 @@ class ImportView(form.Form):
                 uid = intids.getId(content)
                 log.info(
                     'added person %s %s (%i/%i)' % (
-                        member['firstname'], member['lastname'], index+1,
+                        member['firstname'], member['lastname'], index + 1,
                         len(members)
                     )
                 )

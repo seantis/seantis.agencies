@@ -42,6 +42,7 @@ def get_long_description():
 
     return '\n'.join((readme, history))
 
+
 setup(
     name=name, version=version, description=description,
     long_description=get_long_description(),

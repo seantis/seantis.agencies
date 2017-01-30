@@ -1,7 +1,7 @@
 from seantis.plonetools import setuphandlers
 
 indexes = [
-    #('example_index', 'FieldIndex'),
+    # ('example_index', 'FieldIndex'),
 ]
 
 

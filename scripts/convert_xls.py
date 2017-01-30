@@ -1,13 +1,12 @@
 # coding=utf-8
-
 import logging
-logging.basicConfig()
-logger = logging.getLogger('convert_xls')
-logger.setLevel(logging.INFO)
-
 import click
 import xlrd
 import xlwt
+
+logging.basicConfig()
+logger = logging.getLogger('convert_xls')
+logger.setLevel(logging.INFO)
 
 
 # Constants for organisation sheet
@@ -68,17 +67,17 @@ def parse_input(filename, verbose):
         organisations[name] = get_organisations_in_sheet(level, sheets)
 
     # Fill in children
-    for level in range(len(hierarchy)-1):
+    for level in range(len(hierarchy) - 1):
         parents = dict((
             (parent[u'id'], parent) for parent
             in organisations[hierarchy[level]]
         ))
-        for child in organisations[hierarchy[level+1]]:
+        for child in organisations[hierarchy[level + 1]]:
             if child[u'parent'] not in parents.keys():
                 if verbose:
                     logger.warning(
                         u'Orphaned organisation \'%s\' found in %s' % (
-                            child[u'name'], hierarchy[level+1].title()
+                            child[u'name'], hierarchy[level + 1].title()
                         )
                     )
             else:
@@ -126,8 +125,8 @@ def get_organisations_in_sheet(level, sheets):
     )
     indexes[u'parent'] = None
     if level >= 1:
-        assert hierarchy[level-1].lower() in header
-        indexes[u'parent'] = header.index(hierarchy[level-1].lower())
+        assert hierarchy[level - 1].lower() in header
+        indexes[u'parent'] = header.index(hierarchy[level - 1].lower())
 
     # Sort on node_number
     assert header[-1] == u'node_number'
@@ -254,11 +253,14 @@ def print_organisations(organisations):
         output = '  ' * level + organisation[u'name']
         if organisation[u'people'] and show_people:
             output += ' [%s]' % ', '.join(
-                [p[u'vorname']+' '+p[u'name'] for p in organisation[u'people']]
+                [
+                    p[u'vorname'] + ' ' + p[u'name']
+                    for p in organisation[u'people']
+                ]
             )
         print output.encode('utf-8')
         for suborganisation in organisation['children']:
-            r_print_organisations(level+1, suborganisation)
+            r_print_organisations(level + 1, suborganisation)
 
     for organisation in organisations:
         r_print_organisations(0, organisation)
@@ -291,9 +293,9 @@ def export_organizations(organisations, output, verbose):
 
             set_organisation = True
             duplicates = [
-                index for index, existing in enumerate(people)
-                if existing[u'name'] == person[u'name']
-                and existing[u'vorname'] == person[u'vorname']
+                idx for idx, existing in enumerate(people)
+                if existing[u'name'] == person[u'name'] and
+                existing[u'vorname'] == person[u'vorname']
             ]
             for duplicate in duplicates:
                 mergable_fields = [
@@ -321,7 +323,7 @@ def export_organizations(organisations, output, verbose):
                     break
                 else:
                     unmergable = [
-                        person_text_fields[index] for index, field
+                        person_text_fields[idx] for idx, field
                         in enumerate(mergable_fields) if not field
                     ]
                     details = [
@@ -389,25 +391,25 @@ def export_organizations(organisations, output, verbose):
     sheet_people.row(0).write(14, u'Bemerkungen')
     sheet_people.row(0).write(15, u'Organisationen')
 
-    people.sort(key=lambda person: person[u'name']+person[u'vorname'])
+    people.sort(key=lambda person: person[u'name'] + person[u'vorname'])
 
     for index, person in enumerate(people):
-        sheet_people.row(index+1).write(0, person[u'titel'])
-        sheet_people.row(index+1).write(1, u'')
-        sheet_people.row(index+1).write(2, person[u'vorname'])
-        sheet_people.row(index+1).write(3, person[u'name'])
-        sheet_people.row(index+1).write(4, person[u'partei'])
-        sheet_people.row(index+1).write(5, person[u'jahrgang'])
-        sheet_people.row(index+1).write(6, person[u'email'])
-        sheet_people.row(index+1).write(7, person[u'adresse'])
-        sheet_people.row(index+1).write(8, person[u'tel_ext'])
-        sheet_people.row(index+1).write(9, person[u'tel_int'])
-        sheet_people.row(index+1).write(10, person[u'anrede'])
-        sheet_people.row(index+1).write(11, person[u'fax'])
-        sheet_people.row(index+1).write(12, person[u'www'])
-        sheet_people.row(index+1).write(13, person[u'begriffe'])
-        sheet_people.row(index+1).write(14, u'')
-        sheet_people.row(index+1).write(15, u'//'.join(
+        sheet_people.row(index + 1).write(0, person[u'titel'])
+        sheet_people.row(index + 1).write(1, u'')
+        sheet_people.row(index + 1).write(2, person[u'vorname'])
+        sheet_people.row(index + 1).write(3, person[u'name'])
+        sheet_people.row(index + 1).write(4, person[u'partei'])
+        sheet_people.row(index + 1).write(5, person[u'jahrgang'])
+        sheet_people.row(index + 1).write(6, person[u'email'])
+        sheet_people.row(index + 1).write(7, person[u'adresse'])
+        sheet_people.row(index + 1).write(8, person[u'tel_ext'])
+        sheet_people.row(index + 1).write(9, person[u'tel_int'])
+        sheet_people.row(index + 1).write(10, person[u'anrede'])
+        sheet_people.row(index + 1).write(11, person[u'fax'])
+        sheet_people.row(index + 1).write(12, person[u'www'])
+        sheet_people.row(index + 1).write(13, person[u'begriffe'])
+        sheet_people.row(index + 1).write(14, u'')
+        sheet_people.row(index + 1).write(15, u'//'.join(
             person[u'organisations']
         ))
 
@@ -420,12 +422,12 @@ def assign_uids(organisations):
     def r_assign_uids(index, organisation):
         organisation[u'uid'] = index
         for suborganisation in organisation['children']:
-            index = r_assign_uids(index+1, suborganisation)
+            index = r_assign_uids(index + 1, suborganisation)
         return index
 
     index = 1
     for organisation in organisations:
-        index = r_assign_uids(index+1, organisation)
+        index = r_assign_uids(index + 1, organisation)
 
     return organisations
 

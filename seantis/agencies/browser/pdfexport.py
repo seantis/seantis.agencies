@@ -1,8 +1,5 @@
 # coding=utf-8
-
 import logging
-log = logging.getLogger('seantis.agencies')
-
 import time
 import transaction
 
@@ -21,6 +18,9 @@ from seantis.agencies import _
 from seantis.agencies.types import IOrganization
 from seantis.plonetools import tools, unrestricted
 from threading import Lock
+
+
+log = logging.getLogger('seantis.agencies')
 
 
 PDF_EXPORT_FILENAME = u'exported_pdf.pdf'

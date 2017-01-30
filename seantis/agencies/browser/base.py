@@ -1,9 +1,7 @@
 from five import grok
-
-from seantis.plonetools.browser import BaseView as SharedBaseView
-from seantis.plonetools.browser import BaseForm as SharedBaseForm
-
 from seantis.agencies.interfaces import ISeantisAgenciesSpecific
+from seantis.plonetools.browser import BaseForm as SharedBaseForm
+from seantis.plonetools.browser import BaseView as SharedBaseView
 
 
 class BaseView(SharedBaseView):

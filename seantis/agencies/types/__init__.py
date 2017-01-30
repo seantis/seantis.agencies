@@ -1,22 +1,21 @@
 import logging
-log = logging.getLogger('seantis.agencies')
 
-from zope import schema
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
+from collective.dexteritytextindexer import searchable
 from plone import api
 from plone.app.dexterity.behaviors.exclfromnav import IExcludeFromNavigation
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 from plone.dexterity.content import Container
 from plone.directives import form
 from plone.namedfile.field import NamedImage
-
-from collective.dexteritytextindexer import searchable
-
-from seantis.people.types.base import PersonBase
-from seantis.people.interfaces import IMembership as IPeopleMembership
-from seantis.people.content import Membership as PeopleMembership
 from seantis.agencies import _
+from seantis.people.content import Membership as PeopleMembership
+from seantis.people.interfaces import IMembership as IPeopleMembership
+from seantis.people.types.base import PersonBase
+from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
+
+log = logging.getLogger('seantis.agencies')
 
 
 class IMember(form.Schema):

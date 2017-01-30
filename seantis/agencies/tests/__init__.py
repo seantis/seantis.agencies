@@ -1,12 +1,9 @@
-from plone import api
-
-from zope.security.management import newInteraction, endInteraction
-
 from seantis.plonetools.testing import TestCase
 from seantis.agencies.testing import (
     INTEGRATION_TESTING,
     FUNCTIONAL_TESTING
 )
+from zope.security.management import newInteraction, endInteraction
 
 
 # to use with integration where security interactions need to be done manually
@@ -32,7 +29,7 @@ class BrowserTestCase(FunctionalTestCase):
     def setUp(self):
         super(BrowserTestCase, self).setUp()
         self.baseurl = self.portal.absolute_url()
-        self.admin_browser = browser = self.new_admin_browser()
+        self.admin_browser = self.new_admin_browser()
 
     def new_admin_browser(self):
         browser = self.new_browser()

@@ -1,10 +1,8 @@
 import mock
-import os
 
 from datetime import datetime, timedelta
-from zExceptions import NotFound
-
 from seantis.agencies import tests
+from zExceptions import NotFound
 
 
 class TestPdfExport(tests.BrowserTestCase):

@@ -2,12 +2,10 @@ from Acquisition import aq_inner, aq_parent
 from collections import namedtuple
 from five import grok
 from plone import api
-
-from seantis.plonetools import tools
-from seantis.people.interfaces import IPerson
-from seantis.people.browser.macros import View as BaseView
-
 from seantis.agencies.types import IMember
+from seantis.people.browser.macros import View as BaseView
+from seantis.people.interfaces import IPerson
+from seantis.plonetools import tools
 
 
 class View(BaseView):

@@ -1,11 +1,6 @@
 from five import grok
-
-from plone.folder.interfaces import IExplicitOrdering
-from plone.uuid.interfaces import IUUID
-from zope.component import queryUtility
-
-from seantis.agencies.types import IMembership
 from seantis.agencies.browser.base import BaseView
+from seantis.agencies.types import IMembership
 
 
 class OrganizationView(BaseView):

@@ -1,6 +1,5 @@
-from zope.schema import getFields
-
 from seantis.agencies import tests
+from zope.schema import getFields
 
 
 class TestSchema(tests.IntegrationTestCase):

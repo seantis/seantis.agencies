@@ -1,7 +1,5 @@
 from Acquisition import aq_inner, aq_parent
-
 from plone.app.uuid.utils import uuidToCatalogBrain
-
 from seantis.people.browser.renderer import (
     UUIDListRenderer as BaseUUIDListRenderer
 )

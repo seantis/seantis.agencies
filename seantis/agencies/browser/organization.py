@@ -1,12 +1,10 @@
 from five import grok
-
-from zope.event import notify
-from zope.interface import implements
-
 from seantis.agencies.browser.base import BaseView
 from seantis.agencies.interfaces import IActivityEvent
 from seantis.agencies.types import IOrganization
 from seantis.plonetools import tools
+from zope.event import notify
+from zope.interface import implements
 
 
 class ResourceViewedEvent(object):

@@ -1,16 +1,12 @@
 import xlrd
 
 from copy import deepcopy
-from datetime import date, timedelta
-from plone import api
-from StringIO import StringIO
-from xlwt import Workbook
-from zExceptions import Unauthorized
-
 from seantis.agencies import tests
 from seantis.agencies.browser.xlsexport import TITLES_ORGANIZATION
 from seantis.agencies.browser.xlsexport import TITLES_REGISTER
-from seantis.plonetools import tools
+from StringIO import StringIO
+from xlwt import Workbook
+from zExceptions import Unauthorized
 
 
 class TestImportExport(tests.BrowserTestCase):
@@ -44,13 +40,13 @@ class TestImportExport(tests.BrowserTestCase):
             sheet.row(0).write(index, cell)
         for row, organization in enumerate(organizations):
             for index, cell in enumerate(organization):
-                sheet.row(row+1).write(index, cell)
+                sheet.row(row + 1).write(index, cell)
         sheet = book.add_sheet(u'People')
         for index, cell in enumerate(TITLES_REGISTER):
             sheet.row(0).write(index, cell)
         for row, organization in enumerate(people):
             for index, cell in enumerate(organization):
-                sheet.row(row+1).write(index, cell)
+                sheet.row(row + 1).write(index, cell)
         book.save(filehandle)
 
     def test_access(self):
@@ -94,7 +90,7 @@ class TestImportExport(tests.BrowserTestCase):
         self.assertEquals(sheets[0].nrows, 5)
 
         for row, content in enumerate(self.organizations):
-            self.assertEquals([cell.value for cell in sheets[0].row(row+1)],
+            self.assertEquals([cell.value for cell in sheets[0].row(row + 1)],
                               content)
 
         self.assertEquals(sheets[1].name, u'People')
@@ -102,7 +98,7 @@ class TestImportExport(tests.BrowserTestCase):
         self.assertEquals(sheets[1].nrows, 4)
         for row, content in enumerate(self.people):
             self.assertEquals(
-                [cell.value for cell in sheets[1].row(row+1)[:-1]],
+                [cell.value for cell in sheets[1].row(row + 1)[:-1]],
                 content[:-1]
             )
 
