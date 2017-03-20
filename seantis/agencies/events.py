@@ -1,3 +1,4 @@
+from bleach import linkify
 from plone import api
 
 from seantis.agencies.types import IMembership
@@ -28,3 +29,8 @@ def on_organization_modified(context, event=None):
                 person = membership.getObject().person.to_object
                 if person:
                     person.reindexObject(idxs=idxs)
+        if 'portrait' in attributes:
+            callbacks = []
+            context.portrait = linkify(
+                context.portrait, callbacks=callbacks, parse_email=True
+            )

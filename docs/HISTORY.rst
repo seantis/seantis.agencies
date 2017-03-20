@@ -5,7 +5,8 @@ Changelog
 0.10.3 (unreleased)
 ~~~~~~~~~~~~~~~~~~~
 
-Nothing yet.
+- Automatically linkify the portrait of organizations.
+  [msom]
 
 0.10.2 (2017-01-30)
 ~~~~~~~~~~~~~~~~~~~

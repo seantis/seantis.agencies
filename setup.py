@@ -21,6 +21,7 @@ requirements = [
     'seantis.plonetools>=0.18',
     'seantis.people>=0.24',
     'kantonzugpdf>=0.3.1',
+    'bleach'
 ]
 
 
