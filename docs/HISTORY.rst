@@ -2,7 +2,7 @@
 Changelog
 ---------
 
-0.11.1 (unreleased)
+0.11.1 (2017-04-07)
 ~~~~~~~~~~~~~~~~~~~
 
 - Fix linkifying an empty portrait returning 'None'.
