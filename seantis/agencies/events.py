@@ -30,7 +30,8 @@ def on_organization_modified(context, event=None):
                 if person:
                     person.reindexObject(idxs=idxs)
         if 'portrait' in attributes:
-            callbacks = []
-            context.portrait = linkify(
-                context.portrait, callbacks=callbacks, parse_email=True
-            )
+            if context.portrait:
+                callbacks = []
+                context.portrait = linkify(
+                    context.portrait, callbacks=callbacks, parse_email=True
+                )

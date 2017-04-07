@@ -2,6 +2,13 @@
 Changelog
 ---------
 
+0.11.1 (unreleased)
+~~~~~~~~~~~~~~~~~~~
+
+- Fix linkifying an empty portrait returning 'None'.
+  [msom]
+
+
 0.11 (2017-03-27)
 ~~~~~~~~~~~~~~~~~
 
