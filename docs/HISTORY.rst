@@ -2,6 +2,9 @@
 Changelog
 ---------
 
+0.11.2 (2017-09-14)
+~~~~~~~~~~~~~~~~~~~
+
 - Display all memberships of a person in an organization.
   [msom]
 
