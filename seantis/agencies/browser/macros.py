@@ -4,7 +4,6 @@ from five import grok
 from plone import api
 from seantis.agencies.types import IMember
 from seantis.people.browser.macros import View as BaseView
-from seantis.people.interfaces import IPerson
 from seantis.plonetools import tools
 
 
@@ -27,8 +26,6 @@ class View(BaseView):
 
         for uuid, memberships in getattr(person, method).items():
 
-            current_role = IPerson(person).current_role(memberships)
-
             brain = catalog(UID=uuid)[0]
             obj = brain.getObject()
             parent = aq_parent(aq_inner(obj))
@@ -37,9 +34,10 @@ class View(BaseView):
             if parent:
                 title = u'%s (%s)' % (title, parent.title)
 
-            organizations.append(
-                Organization(title, brain.getURL(), current_role)
-            )
+            for membership in memberships:
+                organizations.append(
+                    Organization(title, brain.getURL(), membership.role)
+                )
 
         sortkey = lambda org: tools.unicode_collate_sortkey()(org.title)
         return sorted(organizations, key=sortkey)

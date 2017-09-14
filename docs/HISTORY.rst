@@ -2,12 +2,14 @@
 Changelog
 ---------
 
+- Display all memberships of a person in an organization.
+  [msom]
+
 0.11.1 (2017-04-07)
 ~~~~~~~~~~~~~~~~~~~
 
 - Fix linkifying an empty portrait returning 'None'.
   [msom]
-
 
 0.11 (2017-03-27)
 ~~~~~~~~~~~~~~~~~
