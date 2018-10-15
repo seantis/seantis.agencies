@@ -2,6 +2,7 @@ import os
 
 from five import grok
 from plone import api
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from StringIO import StringIO
 from xlwt import Workbook
@@ -21,7 +22,7 @@ FIELDS_REGISTER = [
 
 TITLES_ORGANIZATION = [
     u'ID', u'Unterorganisationen', u'Titel', u'Beschreibung', u'Portrait',
-    u'Alphabetische Ordnung'
+    u'Alphabetische Ordnung', u'Organigramm', u'Export', u'Status'
 ]
 FIELDS_ORGANIZATION = [
     'title', 'description', 'portrait', 'display_alphabetically'
@@ -73,6 +74,17 @@ class ExportView(grok.View):
         ))
         for col, field in enumerate(FIELDS_ORGANIZATION):
             sheet.row(index).write(2 + col, getattr(organization, field))
+
+        if organization.organigram:
+            sheet.row(index).write(
+                3 + col, organization.absolute_url() + '/@@images/organigram'
+            )
+
+        sheet.row(index).write(4 + col, ','.join(organization.export_fields))
+
+        wt = getToolByName(organization, "portal_workflow")
+        status = wt.getStatusOf("simple_publication_workflow", organization)
+        sheet.row(index).write(5 + col, status['review_state'])
 
         for child in children:
             self.write_organization(sheet, child, uids)

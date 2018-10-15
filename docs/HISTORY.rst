@@ -2,6 +2,9 @@
 Changelog
 ---------
 
+- Adds more details to the XLS export.
+  [msom]
+
 0.11.2 (2017-09-14)
 ~~~~~~~~~~~~~~~~~~~
 
