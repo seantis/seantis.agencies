@@ -12,7 +12,7 @@ TITLES_REGISTER = [
     u'Akademischer Titel', u'Beruf', u'Vorname', u'Nachname',
     u'Politische Partei', u'Jahrgang', u'E-Mail', u'Adresse', u'Telefon',
     u'Direktnummer', u'Anrede', u'Fax', u'Website', u'Stichworte',
-    u'Bemerkungen', u'Organisationen'
+    u'Bemerkungen',  u'Status', u'Organisationen'
 ]
 FIELDS_REGISTER = [
     'academic_title', 'occupation', 'firstname', 'lastname',
@@ -103,6 +103,10 @@ class ExportView(grok.View):
             for col, field in enumerate(FIELDS_REGISTER):
                 sheet.row(index + 1).write(col, getattr(person, field))
 
+            wt = getToolByName(person, "portal_workflow")
+            status = wt.getStatusOf("simple_publication_workflow", person)
+            sheet.row(index + 1).write(col + 1, status['review_state'])
+
             memberships = [
                 u'(%s)(%s)(%s)(%s)(%s)(%s)(%s)' % (
                     str(uids.get(item.aq_parent.UID(), '')),
@@ -116,9 +120,7 @@ class ExportView(grok.View):
                 for sublist in person.memberships.values() for item in sublist
             ]
 
-            sheet.row(index + 1).write(
-                len(FIELDS_REGISTER), u'//'.join(memberships)
-            )
+            sheet.row(index + 1).write(col + 2, u'//'.join(memberships))
 
     def render(self):
         book = Workbook(encoding='utf-8')
