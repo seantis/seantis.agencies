@@ -104,9 +104,13 @@ class ExportView(grok.View):
                 sheet.row(index + 1).write(col, getattr(person, field))
 
             memberships = [
-                u'(%s)(%s)(%s)(%s)(%s)' % (
+                u'(%s)(%s)(%s)(%s)(%s)(%s)(%s)' % (
                     str(uids.get(item.aq_parent.UID(), '')),
-                    item.role, item.start or '', item.prefix or '',
+                    item.role,
+                    item.start or '',
+                    item.prefix or '',
+                    item.postfix or '',
+                    item.note or '',
                     str(item.aq_parent.getObjectPosition(item.getId()))
                 )
                 for sublist in person.memberships.values() for item in sublist
